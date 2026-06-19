@@ -1,1 +1,106 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Roblox Hub - cruzpr11</title><style>body{font-family:sans-serif;background:#06090e;color:#f0f6fc;margin:0;padding:0;text-align:center;overflow-x:hidden}.banner{width:100%;height:130px;background:linear-gradient(135px,#141226 0%,#07060d 100%);border-bottom:3px solid #00f0ff;display:flex;flex-direction:column;justify-content:center;align-items:center;animation:g 4s infinite alternate}@keyframes g{0%{border-bottom-color:#00f0ff;box-shadow:0 4px 15px rgba(0,240,255,0.2)}100%{border-bottom-color:#ff00ff;box-shadow:0 4px 15px rgba(255,0,255,0.4)}}.logo-c{display:flex;align-items:center;gap:12px}.g-logo{width:45px;height:45px;background:#00f0ff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#06090e;border:2px solid #fff;animation:p 2s infinite ease-in-out}@keyframes p{0%,100%{transform:scale(1)}50%{transform:scale(1.06);background:#ff00ff;box-shadow:0 0 15px #ff00ff}}.banner h1{margin:0;font-size:22px;color:#00f0ff;letter-spacing:1px}.social{margin:15px;display:flex;justify-content:center;gap:12px}.btn-s{padding:8px 14px;border-radius:8px;font-weight:bold;font-size:12px;text-decoration:none;color:#fff}.btn-yt{background:#f00}.btn-dc{background:#5865f2}.search{width:85%;max-width:400px;padding:10px;margin:10px auto 20px auto;background:#12161f;border:2px solid #30363d;border-radius:10px;color:#fff}.container{max-width:800px;margin:0 auto;padding:0 15px;display:flex;flex-direction:column;gap:15px}.card{background:#12161f;border:1px solid #21262d;border-radius:16px;padding:15px;text-align:left}.card-h{display:flex;align-items:center;gap:12px;margin-bottom:8px}.card-l{width:35px;height:35px;background:#1f2430;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid #30363d}.badge{padding:4px 8px;font-size:9px;font-weight:bold;border-radius:6px;background:rgba(46,160,67,0.15);color:#3fb950;border:1px solid rgba(46,160,67,0.4);margin-left:auto}.card h3{margin:0;color:#fff;font-size:16px}.card p{font-size:12px;color:#8b949e;margin:8px 0;line-height:1.4}textarea{width:100%;height:55px;background:#07090e;color:#7ee787;border:1px solid #30363d;padding:6px;font-family:monospace;border-radius:8px;resize:none;box-sizing:border-box;font-size:10px}.btn-c{background:linear-gradient(180px,#238636 0%,#1f7330 100%);color:#fff;border:none;padding:10px;font-weight:bold;border-radius:8px;margin-top:10px;width:100%;cursor:pointer;font-size:13px}.acc-btn{background:none;border:none;color:#8b949e;font-size:11px;cursor:pointer;margin-top:10px;text-decoration:underline;text-align:left;width:100%}.acc-content{display:none;background:#07090e;padding:8px;border-radius:8px;margin-top:5px;font-size:11px;color:#c9d1d9;border:1px solid #21262d}.btn-r{background:rgba(248,81,73,0.1);color:#f85149;border:1px solid rgba(248,81,73,0.3);font-size:11px;padding:6px;border-radius:6px;margin-top:10px;cursor:pointer;width:100%;font-weight:bold}</style></head><body><div class="banner"><div class="logo-c"><div class="g-logo">🎮</div><h1>ROBLOX SCRIPT HUB</h1></div></div><div class="social"><a href="https://youtube.com" class="btn-s btn-yt">YouTube 🔴</a><a href="https://discord.com" class="btn-s btn-dc">Discord 💬</a></div><input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego..."><div class="container"><div class="card-item card"><div class="card-h"><div class="card-l">👻</div><h3>Demonology — KurbyHub</h3><span class="badge">ONLINE</span></div><p>Auto-Farm automático, ESP visual y Teleport rápido.</p><textarea id="s1" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea><button class="btn-c" onclick="cp('s1')">Copiar Script 📋</button><button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button><div class="acc-content">1. Abre Demonology.<br>2. Abre Delta.<br>3. Pega y ejecuta el código.</div><button class="btn-r" onclick="rp('Demonology')">⚠️ Reportar Caído</button></div><div class="card-item card"><div class="card-h"><div class="card-l">⚔️</div><h3>Blox Fruits — Mobile</h3><span class="badge">ACTUAL</span></div><p>Auto-Farm de nivel y estadísticas automáticas OP.</p><textarea id="s2" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea><button class="btn-c" onclick="cp('s2')">Copiar Script 📋</button><button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button><div class="acc-content">Usar preferiblemente en servidores privados.</div><button class="btn-r" onclick="rp('Blox Fruits')">⚠️ Reportar Caído</button></div><div class="card-item card"><div class="card-h"><div class="card-l">🏡</div><h3>Brookhaven — Admin</h3><span class="badge">ACTUAL</span></div><p>Comandos para volar y autos premium gratis.</p><textarea id="s3" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea><button class="btn-c" onclick="cp('s3')">Copiar Script 📋</button><button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button><div class="acc-content">Escribe /fly en el chat una vez ejecutado.</div><button class="btn-r" onclick="rp('Brookhaven')">⚠️ Reportar Caído</button></div></div><script>function cp(id){var t=document.getElementById(id);t.select();t.setSelectionRange(0,99999);try{navigator.clipboard.writeText(t.value)}catch(e){var x=document.createElement("textarea");x.value=t.value;document.body.appendChild(x);x.select();document.execCommand("copy");document.body.removeChild(x)}alert("¡Script copiado!")}function flt(){var query=document.getElementById('src').value.toLowerCase();var cards=document.getElementsByClassName('card-item');for(var i=0;i<cards.length;i++){var title=cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();cards[i].style.display=title.includes(query)?"block":"none"}}function ac(btn){var c=btn.nextElementSibling;c.style.display=c.style.display==="block"?"none":"block";btn.innerText=c.style.display==="block"?"🔼 Ocultar instrucciones":"⚙️ Ver instrucciones"}function rp(juego){alert("Reporte enviado para el script de: "+juego)}</script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Hub - cruzpr11</title>
+    <style>
+        body { font-family: sans-serif; background: #06090e; color: #f0f6fc; margin: 0; padding: 0; text-align: center; overflow-x: hidden; }
+        .banner { width: 100%; height: 130px; background: linear-gradient(135px, #141226 0%, #07060d 100%); border-bottom: 3px solid #00f0ff; display: flex; flex-direction: column; justify-content: center; align-items: center; animation: g 4s infinite alternate; }
+        @keyframes g { 0% { border-bottom-color: #00f0ff; box-shadow: 0 4px 15px rgba(0,240,255,0.2); } 100% { border-bottom-color: #ff00ff; box-shadow: 0 4px 15px rgba(255,0,255,0.4); } }
+        .logo-c { display: flex; align-items: center; gap: 12px; }
+        .g-logo { width: 45px; height: 45px; background: #00f0ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #06090e; border: 2px solid #fff; animation: p 2s infinite ease-in-out; }
+        @keyframes p { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); background: #ff00ff; box-shadow: 0 0 15px #ff00ff; } }
+        .banner h1 { margin: 0; font-size: 22px; color: #00f0ff; letter-spacing: 1px; }
+        .social { margin: 15px; display: flex; justify-content: center; gap: 12px; }
+        .btn-s { padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 12px; text-decoration: none; color: #fff; }
+        .btn-yt { background: #f00; }
+        .btn-dc { background: #5865f2; }
+        .search { width: 85%; max-width: 400px; padding: 10px; margin: 10px auto 20px auto; background: #12161f; border: 2px solid #30363d; border-radius: 10px; color: #fff; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 15px; display: flex; flex-direction: column; gap: 15px; }
+        .card { background: #12161f; border: 1px solid #21262d; border-radius: 16px; padding: 15px; text-align: left; }
+        .card-h { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        .card-l { width: 35px; height: 35px; background: #1f2430; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid #30363d; }
+        .badge { padding: 4px 8px; font-size: 9px; font-weight: bold; border-radius: 6px; background: rgba(46,160,67,0.15); color: #3fb950; border: 1px solid rgba(46,160,67,0.4); margin-left: auto; }
+        .card h3 { margin: 0; color: #fff; font-size: 16px; }
+        .card p { font-size: 12px; color: #8b949e; margin: 8px 0; line-height: 1.4; }
+        textarea { width: 100%; height: 55px; background: #07090e; color: #7ee787; border: 1px solid #30363d; padding: 6px; font-family: monospace; border-radius: 8px; resize: none; box-sizing: border-box; font-size: 10px; }
+        .btn-c { background: linear-gradient(180px, #238636 0%, #1f7330 100%); color: #fff; border: none; padding: 10px; font-weight: bold; border-radius: 8px; margin-top: 10px; width: 100%; cursor: pointer; font-size: 13px; }
+        .acc-btn { background: none; border: none; color: #8b949e; font-size: 11px; cursor: pointer; margin-top: 10px; text-decoration: underline; text-align: left; width: 100%; }
+        .acc-content { display: none; background: #07090e; padding: 8px; border-radius: 8px; margin-top: 5px; font-size: 11px; color: #c9d1d9; border: 1px solid #21262d; }
+        .btn-r { background: rgba(248,81,73,0.1); color: #f85149; border: 1px solid rgba(248,81,73,0.3); font-size: 11px; padding: 6px; border-radius: 6px; margin-top: 10px; cursor: pointer; width: 100%; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        <div class="logo-c">
+            <div class="g-logo">🎮</div>
+            <h1>ROBLOX SCRIPT HUB</h1>
+        </div>
+    </div>
+
+    <div class="social">
+        <a href="https://youtube.com" class="btn-s btn-yt">YouTube 🔴</a>
+        <a href="https://discord.com" class="btn-s btn-dc">Discord 💬</a>
+    </div>
+
+    <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego...">
+
+    <div class="container">
+
+        <!-- TARGETA 1 -->
+        <div class="card-item card">
+            <div class="card-h">
+                <div class="card-l">👻</div>
+                <h3>Demonology — KurbyHub</h3>
+                <span class="badge">ONLINE</span>
+            </div>
+            <p>Auto-Farm automático, ESP visual y Teleport rápido.</p>
+            <textarea id="s1" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+            <button class="btn-c" onclick="cp('s1')">Copiar Script 📋</button>
+            <button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button>
+            <div class="acc-content">1. Abre Demonology.<br>2. Abre Delta.<br>3. Pega y ejecuta el código.</div>
+            <button class="btn-r" onclick="rp('Demonology')">⚠️ Reportar Caído</button>
+        </div>
+
+        <!-- TARGETA 2 -->
+        <div class="card-item card">
+            <div class="card-h">
+                <div class="card-l">⚔️</div>
+                <h3>Blox Fruits — Mobile</h3>
+                <span class="badge">ACTUAL</span>
+            </div>
+            <p>Auto-Farm de nivel y estadísticas automáticas OP.</p>
+            <textarea id="s2" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+            <button class="btn-c" onclick="cp('s2')">Copiar Script 📋</button>
+            <button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button>
+            <div class="acc-content">Usar preferiblemente en servidores privados.</div>
+            <button class="btn-r" onclick="rp('Blox Fruits')">⚠️ Reportar Caído</button>
+        </div>
+
+        <!-- TARGETA 3 -->
+        <div class="card-item card">
+            <div class="card-h">
+                <div class="card-l">🏡</div>
+                <h3>Brookhaven — Admin</h3>
+                <span class="badge">ACTUAL</span>
+            </div>
+            <p>Comandos para volar y autos premium gratis.</p>
+            <textarea id="s3" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+            <button class="btn-c" onclick="cp('s3')">Copiar Script 📋</button>
+            <button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button>
+            <div class="acc-content">Escribe /fly en el chat una vez ejecutado.</div>
+            <button class="btn-r" onclick="rp('Brookhaven')">⚠️ Reportar Caído</button>
+        </div>
+
+    </div>
+
+    <script>
+        function cp(id){var t=document.getElementById(id);t.select();t.setSelectionRange(0,99999);try{navigator.clipboard.writeText(t.value)}catch(e){var x=document.createElement("textarea");x.value=t.value;document.body.appendChild(x);x.select();document.execCommand("copy");document.body.removeChild(x)}alert("¡Script copiado con éxito!")}
+        function flt(){var query=document.getElementById('src').value.toLowerCase();var cards=document.getElementsByClassName('card-item');for(var i=0;i<cards.length;i++){var title=cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();cards[i].style.display=title.includes(query)?"block":"none"}}
+        function ac(btn){var c=btn.nextElementSibling;c.style.display=c.style.display==="block"?"none":"block";btn.innerText=c.style.display==="block"?"🔼 Ocultar instrucciones":"⚙️ Ver instrucciones"}
+        function rp(juego){alert("Reporte enviado para el script de: "+juego)}
+    </script>
+</body>
+</html>
