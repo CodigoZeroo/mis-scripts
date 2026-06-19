@@ -52,7 +52,7 @@
         .btn-s { padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 12px; text-decoration: none; color: #fff; }
         .btn-yt { background: #f00; }
         .btn-dc { background: #5865f2; }
-        .search { width: 85%; max-width: 400px; padding: 10px; margin: 10px auto 20px auto; background: #12161f; border: 2px solid #30363d; border-radius: 10px; color: #fff; }
+        .search { width: 85%; max-width: 400px; padding: 10px; margin: 10px auto 20px auto; background: #12161f; border: 2px solid #30363d; border-radius: 10px; color: #fff !important; font-size: 14px; }
         .container { max-width: 800px; margin: 0 auto; padding: 0 15px; display: flex; flex-direction: column; gap: 15px; }
         .card { background: #12161f; border: 1px solid #21262d; border-radius: 16px; padding: 15px; text-align: left; }
         .card-h { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
@@ -61,12 +61,11 @@
         .card h3 { margin: 0; color: #fff; font-size: 16px; }
         .card p { font-size: 12px; color: #8b949e; margin: 8px 0; line-height: 1.4; }
         
-        /* SOLUCIÓN DE TEXTO INVISIBLE */
         textarea { 
             width: 100%; 
             height: 55px; 
             background: #07090e !important; 
-            color: #7ee787 !important; /* Fuerza a que las letras sean verde neón */
+            color: #7ee787 !important; 
             border: 1px solid #30363d; 
             padding: 8px; 
             font-family: monospace; 
@@ -115,11 +114,13 @@
         <a href="https://discord.com" class="btn-s btn-dc">Discord 💬</a>
     </div>
 
+    <!-- Buscador sincronizado con JavaScript -->
     <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego...">
 
     <div class="container">
 
-        <div class="card-item card">
+        <!-- TARJETA 1 -->
+        <div class="card card-item">
             <div class="card-h">
                 <div class="card-l">👻</div>
                 <h3>Demonology — KurbyHub</h3>
@@ -133,7 +134,8 @@
             <button class="btn-r" onclick="rp('Demonology')">⚠️ Reportar Caído</button>
         </div>
 
-        <div class="card-item card">
+        <!-- TARJETA 2 -->
+        <div class="card card-item">
             <div class="card-h">
                 <div class="card-l">⚔️</div>
                 <h3>Blox Fruits — Mobile</h3>
@@ -145,7 +147,8 @@
             <button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button>
             <div class="acc-content">Usar preferiblemente en servidores privados.</div>
             <button class="btn-r" onclick="rp('Blox Fruits')">⚠️ Reportar Caído</button>
-        </div>        <div class="card-item card">
+        </div>        <!-- TARJETA 3 -->
+        <div class="card card-item">
             <div class="card-h">
                 <div class="card-l">🏡</div>
                 <h3>Brookhaven — Admin</h3>
@@ -200,12 +203,17 @@
             alert("¡Script copiado con éxito!");
         }
 
+        /* BUSCADOR ARREGLADO PARA INTERFAZ ANCHA */
         function flt() {
             var query = document.getElementById('src').value.toLowerCase();
             var cards = document.getElementsByClassName('card-item');
             for (var i = 0; i < cards.length; i++) {
-                var title = cards[i].getElementsByTagName('h3').innerText.toLowerCase();
-                cards[i].style.display = title.includes(query) ? "block" : "none";
+                var title = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                if (title.includes(query)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
             }
         }
 
