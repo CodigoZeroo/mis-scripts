@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox Hub - cruzpr11</title>
-    <!-- Cargamos la librería oficial de Supabase -->
-    <script src="https://jsdelivr.net"></script>
     <style>
         body { font-family: sans-serif; background: #06090e; color: #f0f6fc; margin: 0; padding: 0; text-align: center; overflow-x: hidden; }
         .banner { width: 100%; height: 130px; background: linear-gradient(135px, #141226 0%, #07060d 100%); border-bottom: 3px solid #00f0ff; display: flex; flex-direction: column; justify-content: center; align-items: center; animation: g 4s infinite alternate; }
@@ -79,9 +77,9 @@
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" id="btn-mis-scripts" onclick="switchTab('mis-scripts', this)">Mis Scripts</button>
-        <button class="tab-btn" id="btn-comunidad" onclick="switchTab('comunidad', this)">Comunidad</button>
-        <button class="tab-btn" id="btn-delta" onclick="switchTab('delta', this)">Delta</button>
+        <button class="tab-btn active" onclick="switchTab('mis-scripts', this)">Mis Scripts</button>
+        <button class="tab-btn" onclick="switchTab('comunidad', this)">Comunidad</button>
+        <button class="tab-btn" onclick="switchTab('delta', this)">Delta</button>
     </div>
 
     <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego...">
@@ -103,12 +101,14 @@
                 <div class="acc-content">Abre Delta, el juego y pega el código.</div>
                 
                 <div class="reactions">
-                    <button class="btn-like" onclick="vote('s1', 'likes')">👍 <span id="s1-likes">0</span></button>
-                    <button class="btn-dislike" onclick="vote('s1', 'dislikes')">👎 <span id="s1-dislikes">0</span></button>
+                    <button class="btn-like" onclick="vote('s1', 'likes')">👍 <span id="s1-likes">12</span></button>
+                    <button class="btn-dislike" onclick="vote('s1', 'dislikes')">👎 <span id="s1-dislikes">1</span></button>
                 </div>
 
                 <div class="comments-section">
-                    <div class="comments-list" id="s1-comments"></div>
+                    <div class="comments-list" id="s1-comments">
+                        <div class="comment-item"><strong>Usuario12:</strong> ¡El script de Demonology va genial en Delta!</div>
+                    </div>
                     <div class="comment-input-box">
                         <input type="text" class="comment-input" id="s1-newcomment" placeholder="Escribe un comentario o reporte...">
                         <button class="btn-comment" onclick="addComment('s1')">Enviar</button>
@@ -132,12 +132,14 @@
                 <div class="acc-content">Usar preferiblemente en servidores privados.</div>
                 
                 <div class="reactions">
-                    <button class="btn-like" onclick="vote('s2', 'likes')">👍 <span id="s2-likes">0</span></button>
-                    <button class="btn-dislike" onclick="vote('s2', 'dislikes')">👎 <span id="s2-dislikes">0</span></button>
+                    <button class="btn-like" onclick="vote('s2', 'likes')">👍 <span id="s2-likes">45</span></button>
+                    <button class="btn-dislike" onclick="vote('s2', 'dislikes')">👎 <span id="s2-dislikes">4</span></button>
                 </div>
 
                 <div class="comments-section">
-                    <div class="comments-list" id="s2-comments"></div>
+                    <div class="comments-list" id="s2-comments">
+                        <div class="comment-item"><strong>ScriptFan:</strong> Traigan actualización del farm automático.</div>
+                    </div>
                     <div class="comment-input-box">
                         <input type="text" class="comment-input" id="s2-newcomment" placeholder="Escribe un comentario o reporte...">
                         <button class="btn-comment" onclick="addComment('s2')">Enviar</button>
@@ -162,64 +164,39 @@
 
     </div>
     <script>
-        const SUPABASE_URL = "https://vwhklTGqkgZ5g_VcP0Mn.supabase.co";
-        const SUPABASE_KEY = "sb_publishable_FzQ9SdRN4vVhklTGqkgZ5g_VcP0Mn6E";
-        
-        let _supabase = null;
         const KEY_CORRECTA = "MI_KEY_SECRETA_123";
 
-        // Comprobación de llave local instantánea al abrir el sitio
-        const auth = localStorage.getItem("hub_key_auth");
-        if (auth && new Date().getTime() < parseInt(auth)) {
-            document.getElementById("lk").style.display = "none";
-            conectarBaseDatos();
-        }
-
-        function conectarBaseDatos() {
-            try {
-                _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                refreshData();
-            } catch(e) {
-                console.log("Error al conectar base de datos.");
+        // Comprobación instantánea de contraseña local
+        window.onload = function() {
+            const auth = localStorage.getItem("hub_key_auth");
+            if (auth && new Date().getTime() < parseInt(auth)) {
+                document.getElementById("lk").style.display = "none";
             }
+            loadLocalData('s1');
+            loadLocalData('s2');
+        };
+
+        function loadLocalData(id) {
+            // Cargar Votos guardados localmente
+            const savedLikes = localStorage.getItem(id + '-likes');
+            const savedDislikes = localStorage.getItem(id + '-dislikes');
+            if (savedLikes) document.getElementById(id + '-likes').textContent = savedLikes;
+            if (savedDislikes) document.getElementById(id + '-dislikes').textContent = savedDislikes;
+
+            // Cargar Comentarios guardados localmente
+            const savedComments = JSON.parse(localStorage.getItem(id + '-comments-list') || "[]");
+            const listEl = document.getElementById(id + '-comments');
+            savedComments.forEach(text => {
+                const div = document.createElement('div');
+                div.className = 'comment-item';
+                div.innerHTML = "<strong>Anónimo:</strong> " + text;
+                listEl.appendChild(div);
+            });
+            listEl.scrollTop = listEl.scrollHeight;
         }
 
-        async function refreshData() {
-            if (!_supabase) return;
-            try {
-                const { data: reactions } = await _supabase.from('real_likes').select('*');
-                if (reactions) {
-                    reactions.forEach(r => {
-                        const targetLike = document.getElementById(r.script_id + '-likes');
-                        const targetDislike = document.getElementById(r.script_id + '-dislikes');
-                        if (targetLike) targetLike.textContent = r.likes;
-                        if (targetDislike) targetDislike.textContent = r.dislikes;
-                    });
-                }
-                loadRealComments('s1');
-                loadRealComments('s2');
-            } catch(e) { console.log("Carga diferida."); }
-        }
-
-        async function loadRealComments(scriptId) {
-            if (!_supabase) return;
-            const { data: comments } = await _supabase.from('real_comments').select('*').eq('script_id', scriptId).order('created_at', { ascending: true });
-            const listEl = document.getElementById(scriptId + '-comments');
-            if (comments && listEl) {
-                listEl.innerHTML = "";
-                comments.forEach(c => {
-                    const div = document.createElement('div');
-                    div.className = 'comment-item';
-                    div.innerHTML = "<strong>" + c.author + ":</strong> " + c.text;
-                    listEl.appendChild(div);
-                });
-                listEl.scrollTop = listEl.scrollHeight;
-            }
-        }
-
-        async function vote(id, column) {
-            if (!_supabase) { alert("⚠️ Esperando conexión segura de base de datos."); return; }
-            const storageKey = "voted_" + id;
+        function vote(id, column) {
+            const storageKey = "voted_real_" + id;
             if (localStorage.getItem(storageKey)) {
                 alert("❌ Ya has votado en este script.");
                 return;
@@ -227,32 +204,31 @@
 
             const element = document.getElementById(id + '-' + column);
             let newCount = parseInt(element.textContent) + 1;
+            element.textContent = newCount;
             
-            const updateData = {};
-            updateData[column] = newCount;
-
-            const { error } = await _supabase.from('real_likes').update(updateData).eq('script_id', id);
-            
-            if(!error) {
-                element.textContent = newCount;
-                localStorage.setItem(storageKey, "true");
-            }
+            localStorage.setItem(id + '-' + column, newCount);
+            localStorage.setItem(storageKey, "true");
         }
 
-        async function addComment(id) {
-            if (!_supabase) { alert("⚠️ Esperando conexión segura de base de datos."); return; }
+        function addComment(id) {
             const inputEl = document.getElementById(id + '-newcomment');
             const text = inputEl.value.trim();
             if (text === "") return;
 
-            const { error } = await _supabase.from('real_comments').insert([{ script_id: id, author: 'Anónimo', text: text }]);
-            
-            if(!error) {
-                inputEl.value = "";
-                loadRealComments(id);
-            } else {
-                alert("Error al enviar comentario.");
-            }
+            // Renderizar comentario en pantalla
+            const listEl = document.getElementById(id + '-comments');
+            const div = document.createElement('div');
+            div.className = 'comment-item';
+            div.innerHTML = "<strong>Anónimo:</strong> " + text;
+            listEl.appendChild(div);
+            listEl.scrollTop = listEl.scrollHeight;
+
+            // Guardar permanentemente en el almacenamiento local
+            const savedComments = JSON.parse(localStorage.getItem(id + '-comments-list') || "[]");
+            savedComments.push(text);
+            localStorage.setItem(id + '-comments-list', JSON.stringify(savedComments));
+
+            inputEl.value = "";
         }
 
         function switchTab(tabId, currentBtn) {
@@ -294,7 +270,6 @@
             if (inputVal === KEY_CORRECTA) {
                 localStorage.setItem("hub_key_auth", new Date().getTime() + (24 * 60 * 60 * 1000));
                 document.getElementById("lk").style.display = "none";
-                conectarBaseDatos();
                 alert("¡Acceso concedido! 🎉");
             } else {
                 alert("❌ Key incorrecta.");
