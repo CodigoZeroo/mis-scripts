@@ -165,19 +165,28 @@
         const SUPABASE_URL = "https://vwhklTGqkgZ5g_VcP0Mn.supabase.co";
         const SUPABASE_KEY = "sb_publishable_FzQ9SdRN4vVhklTGqkgZ5g_VcP0Mn6E";
         
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let _supabase = null;
         const KEY_CORRECTA = "MI_KEY_SECRETA_123";
 
-        // Comprobación instantánea de acceso sin esperar la base de datos
+        // Comprobación de llave puramente local al abrir el sitio
         const auth = localStorage.getItem("hub_key_auth");
         if (auth && new Date().getTime() < parseInt(auth)) {
             document.getElementById("lk").style.display = "none";
+            conectarBaseDatos();
         }
-        
-        // Ejecución en segundo plano para no congelar la página al iniciar
-        setTimeout(refreshData, 100);
+
+        // Esta función solo se activa si la llave local ya fue validada con éxito
+        function conectarBaseDatos() {
+            try {
+                _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                refreshData();
+            } catch(e) {
+                console.log("Error inicializando Supabase de forma segura.");
+            }
+        }
 
         async function refreshData() {
+            if (!_supabase) return;
             try {
                 const { data: reactions } = await _supabase.from('real_likes').select('*');
                 if (reactions) {
@@ -188,10 +197,11 @@
                 }
                 loadRealComments('s1');
                 loadRealComments('s2');
-            } catch(e) { console.log("Carga de base de datos demorada."); }
+            } catch(e) { console.log("Espera de respuesta de red."); }
         }
 
         async function loadRealComments(scriptId) {
+            if (!_supabase) return;
             const { data: comments } = await _supabase.from('real_comments').select('*').eq('script_id', scriptId).order('created_at', { ascending: true });
             const listEl = document.getElementById(scriptId + '-comments');
             if (comments && listEl) {
@@ -207,6 +217,7 @@
         }
 
         async function vote(id, column) {
+            if (!_supabase) { alert("⚠️ Esperando conexión segura."); return; }
             const storageKey = "voted_" + id;
             if (localStorage.getItem(storageKey)) {
                 alert("❌ Ya has votado en este script.");
@@ -228,6 +239,7 @@
         }
 
         async function addComment(id) {
+            if (!_supabase) { alert("⚠️ Esperando conexión segura."); return; }
             const inputEl = document.getElementById(id + '-newcomment');
             const text = inputEl.value.trim();
             if (text === "") return;
@@ -248,7 +260,7 @@
             for (let i = 0; i < contents.length; i++) contents[i].classList.remove('active');
             for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
             document.getElementById(tabId).classList.add('active');
-            if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            if(window.event && window.event.currentTarget) window.event.currentTarget.classList.add('active');
         }
 
         function flt() {
@@ -280,6 +292,7 @@
             if (inputVal === KEY_CORRECTA) {
                 localStorage.setItem("hub_key_auth", new Date().getTime() + (24 * 60 * 60 * 1000));
                 document.getElementById("lk").style.display = "none";
+                conectarBaseDatos();
                 alert("¡Acceso concedido! 🎉");
             } else {
                 alert("❌ Key incorrecta.");
