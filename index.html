@@ -3,475 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demonology Script HUB | Delta Executor</title>
+    <title>Mis Scripts Delta</title>
     
-    <!-- Librería de Supabase (Versión corregida y ultra compatible con móviles) -->
-    <script src="https://jsdelivr.net"></script>
-    
-    <!-- Iconos Gamer y Fuentes Pro -->
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <link href="https://googleapis.com" rel="stylesheet">
-    
+    <!-- ESTILOS CSS (Requisito 2 y 3) -->
     <style>
-        :root {
-            --bg-dark: #050508;
-            --panel-dark: rgba(13, 13, 22, 0.85);
-            --matrix-green: #00ff66;
-            --neon-purple: #9d4edd;
-            --neon-cyan: #00f0ff;
-            --text-main: #f0f3f8;
-            --terminal-bg: #020204;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Estilos Generales */
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(157, 78, 221, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 255, 102, 0.1) 0%, transparent 40%),
-                linear-gradient(180deg, #050508 0%, #0a0a14 100%);
-            min-height: 100vh;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: #121214;
+            color: #e1e1e6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 650px;
-            margin: 20px auto;
-            backdrop-filter: blur(8px);
+        /* REQUISITO 1: Pantalla de Bloqueo */
+        .bloqueo-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #09090a;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10000;
         }
-
-        .main-panel {
-            background: var(--panel-dark);
-            border: 2px solid var(--neon-purple);
-            box-shadow: 0 0 30px rgba(157, 78, 221, 0.3), inset 0 0 15px rgba(157, 78, 221, 0.1);
-            border-radius: 16px;
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 25px;
-        }
-
-        .main-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan), var(--matrix-green));
-        }
-
-        .header-area {
+        .bloqueo-box {
+            background: #202024;
+            padding: 30px;
+            border-radius: 8px;
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 1px dashed rgba(157, 78, 221, 0.3);
+            border: 1px solid #8257e5;
+            max-width: 400px;
+            width: 90%;
+        }
+        .bloqueo-box input {
+            padding: 12px; width: 85%; margin-bottom: 15px;
+            background: #121214; border: 1px solid #29292e; color: white; border-radius: 4px;
+            font-size: 14px; text-align: center;
+        }
+        .bloqueo-box button {
+            background: #8257e5; color: white; padding: 10px 25px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold;
+        }
+        .error-msg { color: #f75a68; font-size: 14px; margin-top: 10px; font-weight: bold; }
+        .hidden { display: none !important; }
+
+        /* REQUISITO 3 y 6: Encabezado, Pestañas y Redes */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #29292e;
             padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .pestanas .tab-btn {
+            background: none; border: none; color: #a8a8b3;
+            padding: 10px 20px; font-size: 16px; cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .pestanas .tab-btn.active {
+            color: #00b37e; border-bottom: 2px solid #00b37e; font-weight: bold;
+        }
+        .redes-sociales a {
+            text-decoration: none; padding: 8px 15px; border-radius: 4px; margin-left: 10px; font-weight: bold; font-size: 14px;
+        }
+        .btn-yt { background: #c4302b; color: white; }
+        .btn-dc { background: #5865F2; color: white; }
+
+        /* REQUISITO 4: Buscador */
+        .buscador-section { margin: 20px 0; }
+        #buscador {
+            width: 100%; padding: 12px; box-sizing: border-box;
+            background: #202024; border: 1px solid #29292e; color: white; border-radius: 6px;
+            font-size: 15px;
         }
 
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #fff;
-            text-shadow: 0 0 12px var(--neon-purple), 0 0 25px rgba(157, 78, 221, 0.5);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
+        /* REQUISITO 2: Recuadros de Scripts Compactos y Cómodos */
+        .grid-scripts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
         }
-
-        .subtitle {
-            color: var(--neon-cyan);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            margin-top: 8px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .script-box {
-            background: var(--terminal-bg);
-            border: 1px solid rgba(0, 255, 102, 0.3);
-            box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .script-header {
-            display: flex;
-            justify-content: space-between;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            color: var(--matrix-green);
-            margin-bottom: 10px;
-            opacity: 0.8;
-            text-transform: uppercase;
-        }
-
-        code {
-            font-family: 'Fira Code', monospace;
-            color: #fff;
-            display: block;
-            word-break: break-all;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            border-left: 2px solid var(--matrix-green);
-            padding-left: 10px;
-        }
-
-        .btn-action {
-            background: linear-gradient(135deg, var(--neon-purple) 0%, #6a0dad 100%);
-            color: white;
-            border: 1px solid var(--neon-cyan);
-            padding: 14px 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 20px rgba(157, 78, 221, 0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .btn-action:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.5);
-            border-color: var(--matrix-green);
-            filter: brightness(1.1);
-        }
-
-        .stats-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .btn-like {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(157, 78, 221, 0.5);
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-like:hover {
-            background: var(--neon-purple);
-            box-shadow: 0 0 15px var(--neon-purple);
-            border-color: #fff;
-        }
-
-        .secure-badge {
-            color: var(--matrix-green);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
-        }
-
-        .comments-section {
-            background: var(--panel-dark);
-            border: 2px solid rgba(0, 240, 255, 0.2);
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.1);
-            border-radius: 16px;
-            padding: 25px;
-        }
-
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: #fff;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .comment-form {
+        .script-card {
+            background: #202024;
+            border: 1px solid #29292e;
+            border-radius: 6px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
+            justify-content: space-between;
+        }
+        .script-title { margin: 0 0 5px 0; font-size: 16px; color: #00b37e; }
+        .script-desc { margin: 0 0 10px 0; font-size: 13px; color: #a8a8b3; line-height: 1.4; }
+        
+        /* Cuadro de texto compacto para copiar */
+        .script-card textarea {
+            width: 100%; height: 35px; background: #121214; 
+            color: #7c7c8a; border: 1px solid #29292e; resize: none;
+            font-size: 11px; font-family: monospace; box-sizing: border-box;
+            padding: 8px; border-radius: 4px; cursor: pointer;
+            overflow: hidden; white-space: nowrap;
         }
 
-        .input-field {
-            background: var(--terminal-bg);
-            border: 1px solid rgba(157, 78, 221, 0.4);
-            color: #fff;
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            transition: all 0.3s;
+        /* REQUISITO 5 y 7: Footer de los Scripts, Comentarios y Botones */
+        .script-footer {
+            display: flex; justify-content: space-between; margin-top: 10px; gap: 5px;
         }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        .btn-like, .btn-reportar {
+            background: #29292e; border: none; color: white; 
+            padding: 6px 12px; font-size: 12px; border-radius: 4px; cursor: pointer;
+            font-weight: bold; display: flex; align-items: center; gap: 4px;
         }
-
-        textarea.input-field {
-            resize: none;
-            height: 75px;
+        .btn-reportar { background: #f75a68; }
+        .btn-reportar:hover { background: #c53e4c; }
+        
+        /* Sección Discreta de Comentarios Falsos */
+        .comentarios-falsos {
+            margin-top: 10px; padding-top: 8px; border-top: 1px solid #29292e;
+            font-size: 11px; color: #8d8d99;
         }
-
-        .btn-submit {
-            background: transparent;
-            border: 1px solid var(--matrix-green);
-            color: var(--matrix-green);
-            font-family: 'Orbitron', sans-serif;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-        }
-
-        .btn-submit:hover {
-            background: var(--matrix-green);
-            color: #000;
-            box-shadow: 0 0 15px var(--matrix-green);
-        }
-
-        .comments-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-height: 250px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .comments-list::-webkit-scrollbar {
-            width: 4px;
-        }
-        .comments-list::-webkit-scrollbar-thumb {
-            background: var(--neon-purple);
-            border-radius: 10px;
-        }
-
-        .comment-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-left: 3px solid var(--neon-cyan);
-            padding: 12px;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .comment-card:hover {
-            background: rgba(0, 240, 255, 0.03);
-            border-color: rgba(0, 240, 255, 0.2);
-        }
-
-        .comment-user {
-            font-weight: bold;
-            color: var(--neon-cyan);
-            font-size: 1rem;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .comment-text {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            padding-left: 18px;
-        }
+        .comentarios-falsos p { margin: 4px 0; line-height: 1.3; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Panel de Script Principal -->
-        <main class="main-panel">
-            <div class="header-area">
-                <h1><i class="fa-solid fa-terminal" style="color: var(--matrix-green);"></i> DEMONOLOGY HUB</h1>
-                <p class="subtitle">&gt;_ delta_executor_bypass_v2.4</p>
+    <!-- REQUISITO 1: Verificación de Llave al Entrar -->
+    <div id="pantalla-bloqueo" class="bloqueo-overlay">
+        <div class="bloqueo-box">
+            <h2>🔑 Verificación Requerida</h2>
+            <p>Consigue la llave del día uniéndote a nuestro Discord oficial.</p>
+            <input type="text" id="input-llave" placeholder="Introduce la llave aquí...">
+            <br>
+            <button onclick="verificarLlave()">Acceder a los Scripts</button>
+            <p id="error-llave" class="error-msg"></p>
+        </div>
+    </div>
+
+    <!-- Contenido Principal (Bloqueado al inicio) -->
+    <div id="contenido-principal" class="hidden">
+        
+        <!-- REQUISITO 3 y 6: Barra con Redes y Pestañas de Navegación -->
+        <header>
+            <nav class="pestanas">
+                <button class="tab-btn active" onclick="cambiarPestana('mis-scripts')">Mis Scripts</button>
+                <button class="tab-btn" onclick="cambiarPestana('comunidad')">Comunidad</button>
+                <button class="tab-btn" onclick="cambiarPestana('actualizacion')">Actualización Delta</button>
+            </nav>
+            <div class="redes-sociales">
+                <a href="TU_LINK_DE_YOUTUBE" target="_blank" class="btn-yt">YouTube</a>
+                <a href="TU_LINK_DE_DISCORD" target="_blank" class="btn-dc">Discord</a>
             </div>
-            
-            <div class="script-box">
-                <div class="script-header">
-                    <span>source_code.lua</span>
-                    <span>status: bypass ok</span>
+        </header>
+
+        <!-- REQUISITO 4: Buscador Funcional -->
+        <section class="buscador-section">
+            <input type="text" id="buscador" placeholder="🔍 Buscar scripts por nombre..." onkeyup="filtrarScripts()">
+        </section>
+
+        <!-- Secciones de Contenido Intercambiables -->
+        <main>
+            <!-- PESTAÑA 1: MIS SCRIPTS -->
+            <div id="mis-scripts" class="tab-content">
+                <div class="grid-scripts">
+                    
+                    <!-- Tarjeta de Script 1 (Compacta) -->
+                    <div class="script-card">
+                        <div>
+                            <h3 class="script-title">Auto-Farm Delta V1</h3>
+                            <p class="script-desc">Farmeo automático rápido y optimizado para Delta.</p>
+                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado al portapapeles!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+                        </div>
+                        <div>
+                            <div class="script-footer">
+                                <button class="btn-like" onclick="darLike(this)">👍 <span class="like-count">142</span></button>
+                                <button class="btn-reportar" onclick="notificarCaido('Auto-Farm Delta V1')">⚠️ Caído</button>
+                            </div>
+                            <!-- REQUISITO 5: Comentarios Falsos Discretos -->
+                            <div class="comentarios-falsos">
+                                <p>💬 <strong>User99:</strong> ¡Funciona de diez en la nueva versión!</p>
+                                <p>💬 <strong>RobloxKing:</strong> El auto-farm más rápido, gracias admin.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Script 2 (Compacta) -->
+                    <div class="script-card">
+                        <div>
+                            <h3 class="script-title">Aimbot Universal</h3>
+                            <p class="script-desc">Bloqueo de cámara suave, indetectable y ligero.</p>
+                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado al portapapeles!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+                        </div>
+                        <div>
+                            <div class="script-footer">
+                                <button class="btn-like" onclick="darLike(this)">👍 <span class="like-count">87</span></button>
+                                <button class="btn-reportar" onclick="notificarCaido('Aimbot Universal')">⚠️ Caído</button>
+                            </div>
+                            <div class="comentarios-falsos">
+                                <p>💬 <strong>X_Gamer:</strong> Muy fluido, no da bajones de FPS.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Script 3 (Compacta) -->
+                    <div class="script-card">
+                        <div>
+                            <h3 class="script-title">Teleport & Fly</h3>
+                            <p class="script-desc">Vuela por todo el mapa sin errores de desconexión.</p>
+                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado al portapapeles!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+                        </div>
+                        <div>
+                            <div class="script-footer">
+                                <button class="btn-like" onclick="darLike(this)">👍 <span class="like-count">64</span></button>
+                                <button class="btn-reportar" onclick="notificarCaido('Teleport & Fly')">⚠️ Caído</button>
+                            </div>
+                            <div class="comentarios-falsos">
+                                <p>💬 <strong>Speedy:</strong> Útil para escapar rápido de zonas peligrosas.</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <code id="scriptCode">loadstring(game:HttpGet("https://githubusercontent.com"))()</code>
             </div>
 
-            <button class="btn-action" onclick="copyScript()">
-                <i class="fa-solid fa-bolt-lightning"></i> INYECTAR SCRIPT (COPIAR)
-            </button>
+            <!-- PESTAÑA 2: COMUNIDAD -->
+            <div id="comunidad" class="tab-content hidden">
+                <h2 style="color: #00b37e;">Scripts de la Comunidad</h2>
+                <p>Próximamente verás aquí los códigos y configuraciones recomendados por los miembros del canal.</p>
+            </div>
 
-            <div class="stats-bar">
-                <div class="like-container">
-                    <button class="btn-like" onclick="addLike()">
-                        <i class="fa-solid fa-skull"></i> LIKES: <span id="likeCount">0</span>
-                    </button>
-                </div>
-                <span class="secure-badge"><i class="fa-solid fa-user-shield"></i> BYPASS DETECTED</span>
+            <!-- PESTAÑA 3: ACTUALIZACIÓN DELTA -->
+            <div id="actualizacion" class="tab-content hidden">
+                <h2 style="color: #00b37e;">Estado de Delta Executor</h2>
+                <p>Aquí pondré la información sobre si el ejecutor Delta está activo, caído o si requiere parches de Roblox.</p>
             </div>
         </main>
-
-        <!-- Sección de Comentarios -->
-        <section class="comments-section">
-            <h2><i class="fa-solid fa-network-wired" style="color: var(--neon-cyan);"></i> CONSOLA DE FEEDBACK</h2>
-            
-            <div class="comment-form">
-                <input type="text" id="username" class="input-field" placeholder="[NICK_ROBLOX]:_" required>
-                <textarea id="commentText" class="input-field" placeholder="[MENSAJE_LOG]:_" required></textarea>
-                <button class="btn-submit" onclick="submitComment()">&gt;&gt; ENVIAR_DATOS</button>
-            </div>
-
-            <div class="comments-list" id="commentsList">
-                <!-- Los comentarios cargarán dinámicamente aquí -->
-            </div>
-        </section>
     </div>
+    <!-- PROGRAMACIÓN / LÓGICA JAVASCRIPT -->
     <script>
-        // CONFIGURACIÓN DIRECTA DE SUPABASE
-        const SUPABASE_URL = "https://supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_FzQ9SdRN4vVhklTGqkgZ5g_VcP0Mn6E";
+        // REQUISITO 1: Configura la llave que quieras aquí
+        const LLAVE_CORRECTA = "DeltaDiscord2026"; 
 
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        function verificarLlave() {
+            const llaveIngresada = document.getElementById("input-llave").value.trim();
+            const errorMsg = document.getElementById("error-llave");
 
-        window.onload = function() {
-            loadLikes();
-            loadComments();
-        };
-
-        function copyScript() {
-            const codeText = document.getElementById('scriptCode').innerText;
-            navigator.clipboard.writeText(codeText);
-            alert("¡Script copiado al portapapeles! Pégalo dentro de tu Delta Executor en Roblox.");
+            if (llaveIngresada === LLAVE_CORRECTA) {
+                document.getElementById("pantalla-bloqueo").classList.add("hidden");
+                document.getElementById("contenido-principal").classList.remove("hidden");
+            } else {
+                errorMsg.innerText = "❌ Llave incorrecta o expirada. Revisa los canales de Discord.";
+            }
         }
 
-        async function loadLikes() {
-            try {
-                let { data, error } = await supabase.from('likes_table').select('count').eq('id', 1).maybeSingle();
-                if (data && data.count !== undefined) {
-                    document.getElementById('likeCount').innerText = data.count;
+        // REQUISITO 3: Sistema de pestañas limpias
+        function cambiarPestana(idPestana) {
+            const contenidos = document.querySelectorAll(".tab-content");
+            contenidos.forEach(content => content.classList.add("hidden"));
+
+            const botones = document.querySelectorAll(".tab-btn");
+            botones.forEach(btn => btn.classList.remove("active"));
+
+            document.getElementById(idPestana).classList.remove("hidden");
+            event.currentTarget.classList.add("active");
+        }
+
+        // REQUISITO 4: Motor del buscador en tiempo real
+        function filtrarScripts() {
+            const filtro = document.getElementById("buscador").value.toLowerCase();
+            const tarjetas = document.querySelectorAll(".script-card");
+
+            tarjetas.forEach(tarjeta => {
+                const titulo = tarjeta.querySelector(".script-title").innerText.toLowerCase();
+                const desc = tarjeta.querySelector(".script-desc").innerText.toLowerCase();
+                
+                if (titulo.includes(filtro) || desc.includes(filtro)) {
+                    tarjeta.style.display = "flex";
                 } else {
-                    document.getElementById('likeCount').innerText = "0";
+                    tarjeta.style.display = "none";
                 }
-            } catch (err) {
-                document.getElementById('likeCount').innerText = "0";
+            });
+        }
+
+        // REQUISITO 5: Sumar likes sin recargar
+        function darLike(boton) {
+            const contador = boton.querySelector(".like-count");
+            let numeroLikes = parseInt(contador.innerText);
+            
+            if (!boton.classList.contains("liked")) {
+                numeroLikes += 1;
+                contador.innerText = numeroLikes;
+                boton.classList.add("liked");
+                boton.style.background = "#00b37e";
             }
         }
 
-        async function addLike() {
-            try {
-                let currentLikes = parseInt(document.getElementById('likeCount').innerText) || 0;
-                let newLikes = currentLikes + 1;
-                
-                const { error } = await supabase.from('likes_table').update({ count: newLikes }).eq('id', 1);
-                
-                if (error) {
-                    await supabase.from('likes_table').insert([{ id: 1, count: newLikes }]);
-                }
-                
-                document.getElementById('likeCount').innerText = newLikes;
-            } catch (err) {
-                console.error("Error al procesar like:", err);
-            }
-        }
+        // REQUISITO 7: Envío automático por Webhook de Discord
+        function notificarCaido(nombreScript) {
+            // COLOCA TU ENLACE DE WEBHOOK ENTRE LAS COMILLAS DE ABAJO
+            const webhookURL = "TU_URL_DE_WEBHOOK_DE_DISCORD_AQUI"; 
 
-        async function loadComments() {
-            try {
-                let { data: comments, error } = await supabase
-                    .from('comments_table')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) return;
-
-                const listContainer = document.getElementById('commentsList');
-                if (!listContainer) return;
-                listContainer.innerHTML = '';
-
-                if (comments && comments.length > 0) {
-                    comments.forEach(c => {
-                        const card = document.createElement('div');
-                        card.className = 'comment-card';
-                        card.innerHTML = `
-                            <div class="comment-user"><i class="fa-solid fa-angle-right"></i> ${escapeHTML(c.username || 'Gamer Anónimo')}</div>
-                            <div class="comment-text">${escapeHTML(c.comment || '')}</div>
-                        `;
-                        listContainer.appendChild(card);
-                    });
-                }
-            } catch (err) {
-                console.error("Error cargando comentarios:", err);
-            }
-        }
-
-        async function submitComment() {
-            const usernameInput = document.getElementById('username');
-            const commentInput = document.getElementById('commentText');
-
-            if (!usernameInput || !commentInput || !usernameInput.value || !commentInput.value) {
-                alert("Completa los campos antes de enviar el log.");
+            if(webhookURL === "TU_URL_DE_WEBHOOK_DE_DISCORD_AQUI") {
+                alert("¡Configuración incompleta! Debes poner la URL de tu Webhook de Discord en el código del archivo index.html");
                 return;
             }
 
-            try {
-                const { error } = await supabase
-                    .from('comments_table')
-                    .insert([{ username: usernameInput.value, comment: commentInput.value }]);
+            const datosMensaje = {
+                content: `🚨 **¡ALERTA DE SCRIPT CAÍDO!** El script **${nombreScript}** ha sido reportado en la web.`
+            };
 
-                if (!error) {
-                    usernameInput.value = '';
-                    commentInput.value = '';
-                    loadComments(); 
-                } else {
-                    alert("Error al inyectar el comentario. Verifica tus tablas en Supabase.");
-                }
-            } catch (err) {
-                alert("Error de conexión.");
-            }
-        }
-
-        function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-            );
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosMensaje)
+            })
+            .then(() => {
+                alert(`¡Reporte enviado! He avisado al staff en Discord sobre el fallo en: ${nombreScript}`);
+            })
+            .catch(err => {
+                console.error("Error al enviar alerta:", err);
+                alert("Hubo un error de conexión al enviar el reporte.");
+            });
         }
     </script>
 </body>
