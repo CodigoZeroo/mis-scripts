@@ -66,7 +66,6 @@
         </div>
     </div>
 
-    <!-- Encabezado de la página -->
     <div class="banner">
         <div class="logo-c">
             <div class="g-logo">🎮</div>
@@ -79,7 +78,6 @@
         <a href="https://discord.com" target="_blank" class="btn-s btn-dc">Discord 💬</a>
     </div>
 
-    <!-- Pestañas Modificadas -->
     <div class="tabs">
         <button class="tab-btn active" onclick="switchTab('mis-scripts')">Mis Scripts</button>
         <button class="tab-btn" onclick="switchTab('comunidad')">Comunidad</button>
@@ -127,7 +125,7 @@
                     <h3>Blox Fruits — Mobile</h3>
                     <span class="badge">ACTUAL</span>
                 </div>
-                <p>Auto-Farm estable enviado por la comunidad.</p>
+                <p>Auto-Farm de nivel estable enviado por la comunidad.</p>
                 <textarea id="s2" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
                 <button class="btn-c" onclick="cp('s2')">Copiar Script 📋</button>
                 <button class="acc-btn" onclick="ac(this)">⚙️ Instrucciones</button>
@@ -163,10 +161,127 @@
         </div>
 
     </div>
-        <script>
-        // Vinculación real a tu base de datos de Supabase
+    <script>
+        // Conexión corregida a Supabase con tus llaves reales
         const SUPABASE_URL = "https://vwhklTGqkgZ5g_VcP0Mn.supabase.co";
         const SUPABASE_KEY = "sb_publishable_FzQ9SdRN4vVhklTGqkgZ5g_VcP0Mn6E";
         
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        const KEY_CORRECTA = "codigozero123";
+        const KEY_CORRECTA = "MI_KEY_SECRETA_123";
+
+        window.onload = function() {
+            const auth = localStorage.getItem("hub_key_auth");
+            if (auth && new Date().getTime() < parseInt(auth)) {
+                document.getElementById("lk").style.display = "none";
+            }
+            refreshData();
+        }
+
+        async function refreshData() {
+            const { data: reactions } = await _supabase.from('real_likes').select('*');
+            if (reactions) {
+                reactions.forEach(r => {
+                    if(document.getElementById(r.script_id + '-likes')) document.getElementById(r.script_id + '-likes').textContent = r.likes;
+                    if(document.getElementById(r.script_id + '-dislikes')) document.getElementById(r.script_id + '-dislikes').textContent = r.dislikes;
+                });
+            }
+            loadRealComments('s1');
+            loadRealComments('s2');
+        }
+
+        async function loadRealComments(scriptId) {
+            const { data: comments } = await _supabase.from('real_comments').select('*').eq('script_id', scriptId).order('created_at', { ascending: true });
+            const listEl = document.getElementById(scriptId + '-comments');
+            if (comments && listEl) {
+                listEl.innerHTML = "";
+                comments.forEach(c => {
+                    const div = document.createElement('div');
+                    div.className = 'comment-item';
+                    div.innerHTML = "<strong>" + c.author + ":</strong> " + c.text;
+                    listEl.appendChild(div);
+                });
+                listEl.scrollTop = listEl.scrollHeight;
+            }
+        }
+
+        async function vote(id, column) {
+            const storageKey = "voted_" + id;
+            if (localStorage.getItem(storageKey)) {
+                alert("❌ Ya has votado en este script.");
+                return;
+            }
+
+            const element = document.getElementById(id + '-' + column);
+            let newCount = parseInt(element.textContent) + 1;
+            
+            const updateData = {};
+            updateData[column] = newCount;
+
+            const { error } = await _supabase.from('real_likes').update(updateData).eq('script_id', id);
+            
+            if(!error) {
+                element.textContent = newCount;
+                localStorage.setItem(storageKey, "true");
+            }
+        }
+
+        async function addComment(id) {
+            const inputEl = document.getElementById(id + '-newcomment');
+            const text = inputEl.value.trim();
+            if (text === "") return;
+
+            const { error } = await _supabase.from('real_comments').insert([{ script_id: id, author: 'Anónimo', text: text }]);
+            
+            if(!error) {
+                inputEl.value = "";
+                loadRealComments(id);
+            } else {
+                alert("Error al enviar comentario.");
+            }
+        }
+
+        function switchTab(tabId) {
+            const contents = document.getElementsByClassName('tab-content');
+            const buttons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < contents.length; i++) contents[i].classList.remove('active');
+            for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function flt() {
+            const input = document.getElementById('src').value.toLowerCase();
+            const activeTab = document.querySelector('.tab-content.active');
+            if(!activeTab) return;
+            const cards = activeTab.getElementsByClassName('card-item');
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].querySelector('h3').textContent.toLowerCase();
+                const desc = cards[i].querySelector('p').textContent.toLowerCase();
+                cards[i].style.display = (title.includes(input) || desc.includes(input)) ? "block" : "none";
+            }
+        }
+
+        function cp(id) {
+            const textEl = document.getElementById(id);
+            textEl.select();
+            navigator.clipboard.writeText(textEl.value);
+            alert("¡Copiado con éxito! 📋");
+        }
+
+        function ac(btn) {
+            const content = btn.nextElementSibling;
+            content.style.display = (content.style.display === "block") ? "none" : "block";
+        }
+
+        function validarKey() {
+            if (document.getElementById("keyField").value.trim() === KEY_CORRECTA) {
+                localStorage.setItem("hub_key_auth", new Date().getTime() + (24 * 60 * 60 * 1000));
+                document.getElementById("lk").style.display = "none";
+                alert("¡Acceso concedido! 🎉");
+            } else {
+                alert("❌ Key incorrecta.");
+            }
+        }
+    </script>
+</body>
+</html>
