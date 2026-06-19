@@ -1,8 +1,9 @@
 // CONFIGURACIÓN DE TU BASE DE DATOS
-const SUPABASE_URL = "https://TU_PROPIO_PROYECTO.supabase.co";
-const SUPABASE_ANON_KEY = "TU_ANON_KEY_DE_SUPABASE";
+const SUPABASE_URL = "https://supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_FzQ9SdRN4vVhklTGqkgZ5g_VcP0Mn6E";
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 
 // Ejecutar funciones al cargar la página
 window.onload = function() {
