@@ -4,61 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox Hub - cruzpr11</title>
+    <!-- Cargamos la librería oficial de Supabase -->
+    <script src="https://jsdelivr.net"></script>
     <style>
-        body {
-            font-family: sans-serif;
-            background: #06090e;
-            color: #f0f6fc;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            overflow-x: hidden;
-        }
-        .banner {
-            width: 100%;
-            height: 130px;
-            background: linear-gradient(135px, #141226 0%, #07060d 100%);
-            border-bottom: 3px solid #00f0ff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            animation: g 4s infinite alternate;
-        }
-        @keyframes g {
-            0% { border-bottom-color: #00f0ff; box-shadow: 0 4px 15px rgba(0,240,255,0.2); }
-            100% { border-bottom-color: #ff00ff; box-shadow: 0 4px 15px rgba(255,0,255,0.4); }
-        }
+        body { font-family: sans-serif; background: #06090e; color: #f0f6fc; margin: 0; padding: 0; text-align: center; overflow-x: hidden; }
+        .banner { width: 100%; height: 130px; background: linear-gradient(135px, #141226 0%, #07060d 100%); border-bottom: 3px solid #00f0ff; display: flex; flex-direction: column; justify-content: center; align-items: center; animation: g 4s infinite alternate; }
+        @keyframes g { 0% { border-bottom-color: #00f0ff; box-shadow: 0 4px 15px rgba(0,240,255,0.2); } 100% { border-bottom-color: #ff00ff; box-shadow: 0 4px 15px rgba(255,0,255,0.4); } }
         .logo-c { display: flex; align-items: center; gap: 12px; }
-        .g-logo {
-            width: 45px;
-            height: 45px;
-            background: #00f0ff;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: #06090e;
-            border: 2px solid #fff;
-            animation: p 2s infinite ease-in-out;
-        }
-        @keyframes p {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.06); background: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
-        }
+        .g-logo { width: 45px; height: 45px; background: #00f0ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #06090e; border: 2px solid #fff; animation: p 2s infinite ease-in-out; }
+        @keyframes p { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); background: #ff00ff; box-shadow: 0 0 15px #ff00ff; } }
         .banner h1 { margin: 0; font-size: 22px; color: #00f0ff; letter-spacing: 1px; }
         .social { margin: 15px; display: flex; justify-content: center; gap: 12px; }
         .btn-s { padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 12px; text-decoration: none; color: #fff; }
-        .btn-yt { background: #f00; }
-        .btn-dc { background: #5865f2; }
-        
+        .btn-yt { background: #f00; } .btn-dc { background: #5865f2; }
         .tabs { display: flex; justify-content: center; gap: 10px; margin: 15px auto; max-width: 600px; padding: 0 15px; }
         .tab-btn { background: #12161f; border: 1px solid #21262d; color: #8b949e; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; flex: 1; transition: 0.3s; }
         .tab-btn.active { background: #00f0ff; color: #06090e; border-color: #fff; box-shadow: 0 0 10px rgba(0,240,255,0.3); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
+        .tab-content { display: none; } .tab-content.active { display: block; }
         .search { width: 85%; max-width: 400px; padding: 10px; margin: 10px auto 20px auto; background: #12161f; border: 2px solid #30363d; border-radius: 10px; color: #fff; }
         .container { max-width: 800px; margin: 0 auto; padding: 0 15px; display: flex; flex-direction: column; gap: 15px; padding-bottom: 40px; }
         .card { background: #12161f; border: 1px solid #21262d; border-radius: 16px; padding: 15px; text-align: left; margin-bottom: 15px; }
@@ -67,49 +29,32 @@
         .badge { padding: 4px 8px; font-size: 9px; font-weight: bold; border-radius: 6px; background: rgba(46,160,67,0.15); color: #3fb950; border: 1px solid rgba(46,160,67,0.4); margin-left: auto; }
         .card h3 { margin: 0; color: #fff; font-size: 16px; }
         .card p { font-size: 12px; color: #8b949e; margin: 8px 0; line-height: 1.4; }
-        
-        textarea { 
-            width: 100%; 
-            height: 55px; 
-            background: #07090e !important; 
-            color: #7ee787 !important; 
-            border: 1px solid #30363d; 
-            padding: 8px; 
-            font-family: monospace; 
-            border-radius: 8px; 
-            resize: none; 
-            box-sizing: border-box; 
-            font-size: 10px; 
-        }
-        
+        textarea { width: 100%; height: 55px; background: #07090e !important; color: #7ee787 !important; border: 1px solid #30363d; padding: 8px; font-family: monospace; border-radius: 8px; resize: none; box-sizing: border-box; font-size: 10px; }
         .btn-c { background: linear-gradient(180px, #238636 0%, #1f7330 100%); color: #fff; border: none; padding: 10px; font-weight: bold; border-radius: 8px; margin-top: 10px; width: 100%; cursor: pointer; font-size: 13px; }
         .acc-btn { background: none; border: none; color: #8b949e; font-size: 11px; cursor: pointer; margin-top: 10px; text-decoration: underline; text-align: left; width: 100%; }
         .acc-content { display: none; background: #07090e; padding: 8px; border-radius: 8px; margin-top: 5px; font-size: 11px; color: #c9d1d9; border: 1px solid #21262d; }
-        
         .reactions { display: flex; gap: 10px; margin-top: 12px; }
         .btn-like, .btn-dislike { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #30363d; background: #171b24; color: #fff; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px; }
         .btn-like:hover { background: rgba(46,160,67,0.15); border-color: #3fb950; }
         .btn-dislike:hover { background: rgba(248,81,73,0.15); border-color: #f85149; }
-
         .comments-section { margin-top: 15px; border-top: 1px solid #21262d; padding-top: 10px; }
         .comments-list { max-height: 120px; overflow-y: auto; background: #07090e; padding: 8px; border-radius: 8px; font-size: 11px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 6px; }
-        .comment-item { background: #12161f; padding: 6px; border-radius: 4px; border-left: 3px solid #00f0ff; color: #c9d1d9; text-align: left; }
+        .comment-item { background: #12161f; padding: 6px; border-radius: 4px; border-left: 3px solid #00f0ff; color: #c9d1d9; text-align: left; word-break: break-all; }
         .comment-input-box { display: flex; gap: 6px; }
         .comment-input { flex: 1; padding: 6px; background: #07090e; border: 1px solid #30363d; color: #fff; border-radius: 6px; font-size: 11px; }
         .btn-comment { background: #5865f2; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold; }
-
         #lk { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #07060d; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
         .lk-b { background: #12161f; border: 2px solid #ff00ff; padding: 30px; border-radius: 20px; max-width: 400px; box-shadow: 0 0 25px rgba(255,0,255,0.3); text-align: center; }
         .lk-b h2 { color: #ff00ff; margin-top: 0; font-size: 20px; }
         .lk-b p { color: #8b949e; font-size: 13px; line-height: 1.5; }
         .key-input { width: 100%; padding: 12px; margin-top: 15px; background: #07090e; border: 1px solid #30363d; color: #fff !important; border-radius: 8px; text-align: center; font-size: 16px; box-sizing: border-box; }
-        .key-input:focus { outline: none; border-color: #ff00ff; }
         .btn-verify { background: #238636; color: white; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; width: 100%; border: none; margin-top: 10px; cursor: pointer; }
         .btn-ul { background: #5865f2; color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; text-decoration: none; display: block; margin-top: 15px; }
     </style>
 </head>
 <body>
 
+    <!-- Bloqueo por Contraseña -->
     <div id="lk">
         <div class="lk-b">
             <div style="font-size:40px; margin-bottom:10px;">🔑</div>
@@ -121,6 +66,7 @@
         </div>
     </div>
 
+    <!-- Encabezado de la página -->
     <div class="banner">
         <div class="logo-c">
             <div class="g-logo">🎮</div>
@@ -133,16 +79,18 @@
         <a href="https://discord.com" target="_blank" class="btn-s btn-dc">Discord 💬</a>
     </div>
 
+    <!-- Pestañas Modificadas -->
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('mis-scripts')">Scripts Hechos por Mí</button>
-        <button class="tab-btn" onclick="switchTab('comunidad')">De la Comunidad</button>
-        <button class="tab-btn" onclick="switchTab('delta')">Delta Updates</button>
+        <button class="tab-btn active" onclick="switchTab('mis-scripts')">Mis Scripts</button>
+        <button class="tab-btn" onclick="switchTab('comunidad')">Comunidad</button>
+        <button class="tab-btn" onclick="switchTab('delta')">Delta</button>
     </div>
 
-    <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego en esta sección...">
+    <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego...">
 
     <div class="container">
 
+        <!-- SECCIÓN 1: MIS SCRIPTS -->
         <div id="mis-scripts" class="tab-content active">
             <div class="card-item card">
                 <div class="card-h">
@@ -150,21 +98,19 @@
                     <h3>Demonology — KurbyHub</h3>
                     <span class="badge">ONLINE</span>
                 </div>
-                <p>Auto-Farm automático, ESP visual y Teleport rápido.</p>
+                <p>Auto-Farm, ESP visual y Teleport.</p>
                 <textarea id="s1" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
                 <button class="btn-c" onclick="cp('s1')">Copiar Script 📋</button>
-                <button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button>
-                <div class="acc-content">1. Abre Demonology.<br>2. Abre Delta.<br>3. Pega y ejecuta el código.</div>
+                <button class="acc-btn" onclick="ac(this)">⚙️ Instrucciones</button>
+                <div class="acc-content">Abre Delta, el juego y pega el código.</div>
                 
                 <div class="reactions">
-                    <button class="btn-like" onclick="vote('s1', 'like')">👍 <span id="s1-likes">12</span></button>
-                    <button class="btn-dislike" onclick="vote('s1', 'dislike')">👎 <span id="s1-dislikes">2</span></button>
+                    <button class="btn-like" onclick="vote('s1', 'likes')">👍 <span id="s1-likes">0</span></button>
+                    <button class="btn-dislike" onclick="vote('s1', 'dislikes')">👎 <span id="s1-dislikes">0</span></button>
                 </div>
 
                 <div class="comments-section">
-                    <div class="comments-list" id="s1-comments">
-                        <div class="comment-item"><strong>User82:</strong> ¡Funciona genial en Delta! 🔥</div>
-                    </div>
+                    <div class="comments-list" id="s1-comments"></div>
                     <div class="comment-input-box">
                         <input type="text" class="comment-input" id="s1-newcomment" placeholder="Escribe un comentario o reporte...">
                         <button class="btn-comment" onclick="addComment('s1')">Enviar</button>
@@ -173,28 +119,27 @@
             </div>
         </div>
 
+        <!-- SECCIÓN 2: COMUNIDAD -->
         <div id="comunidad" class="tab-content">
             <div class="card-item card">
                 <div class="card-h">
                     <div class="card-l">⚔️</div>
-                    <h3>Blox Fruits — Comunidad Mobile</h3>
+                    <h3>Blox Fruits — Mobile</h3>
                     <span class="badge">ACTUAL</span>
                 </div>
-                <p>Script externo enviado por la comunidad. Auto-Farm de nivel estable.</p>
+                <p>Auto-Farm estable enviado por la comunidad.</p>
                 <textarea id="s2" readonly>loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
                 <button class="btn-c" onclick="cp('s2')">Copiar Script 📋</button>
-                <button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button>
-                <div class="acc-content">Usar bajo tu propio riesgo. Recomendado en cuentas secundarias.</div>
+                <button class="acc-btn" onclick="ac(this)">⚙️ Instrucciones</button>
+                <div class="acc-content">Usar preferiblemente en servidores privados.</div>
                 
                 <div class="reactions">
-                    <button class="btn-like" onclick="vote('s2', 'like')">👍 <span id="s2-likes">45</span></button>
-                    <button class="btn-dislike" onclick="vote('s2', 'dislike')">👎 <span id="s2-dislikes">8</span></button>
+                    <button class="btn-like" onclick="vote('s2', 'likes')">👍 <span id="s2-likes">0</span></button>
+                    <button class="btn-dislike" onclick="vote('s2', 'dislikes')">👎 <span id="s2-dislikes">0</span></button>
                 </div>
 
                 <div class="comments-section">
-                    <div class="comments-list" id="s2-comments">
-                        <div class="comment-item"><strong>Robloxian:</strong> Traigan actualización por favor.</div>
-                    </div>
+                    <div class="comments-list" id="s2-comments"></div>
                     <div class="comment-input-box">
                         <input type="text" class="comment-input" id="s2-newcomment" placeholder="Escribe un comentario o reporte...">
                         <button class="btn-comment" onclick="addComment('s2')">Enviar</button>
@@ -203,130 +148,25 @@
             </div>
         </div>
 
+        <!-- SECCIÓN 3: DELTA -->
         <div id="delta" class="tab-content">
             <div class="card">
                 <div class="card-h">
                     <div class="card-l">🔺</div>
-                    <h3>Delta Executor — Última Versión</h3>
-                    <span class="badge" style="background:rgba(0,240,255,0.15); color:#00f0ff; border-color:rgba(0,240,255,0.4);">NUEVO</span>
+                    <h3>Delta Executor — Oficial</h3>
+                    <span class="badge" style="background:rgba(0,240,255,0.15); color:#00f0ff;">APK</span>
                 </div>
-                <p>Descarga la última APK oficial de Delta para Android / Emulador sin problemas de crash.</p>
+                <p>Descarga la última versión oficial de Delta sin crash.</p>
                 <textarea id="s3" readonly>https://delta-executor.com</textarea>
-                <button class="btn-c" onclick="cp('s3')">Copiar Enlace de Descarga 📋</button>
-                <div class="comments-section" style="border:none; margin-top:5px;">
-                    <div class="comments-list" id="s3-comments">
-                        <div class="comment-item"><strong>Admin:</strong> Versión v2.645 funcionando al 100%.</div>
-                    </div>
-                </div>
+                <button class="btn-c" onclick="cp('s3')">Copiar Enlace 📋</button>
             </div>
         </div>
 
-    </div>    <script>
+    </div>
+        <script>
+        // Vinculación real a tu base de datos de Supabase
+        const SUPABASE_URL = "https://vwhklTGqkgZ5g_VcP0Mn.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_FzQ9SdRN4vVhklTGqkgZ5g_VcP0Mn6E";
+        
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const KEY_CORRECTA = "codigozero123";
-
-        function switchTab(tabId) {
-            const contents = document.getElementsByClassName('tab-content');
-            const buttons = document.getElementsByClassName('tab-btn');
-            
-            for (let i = 0; i < contents.length; i++) {
-                contents[i].classList.remove('active');
-            }
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        function flt() {
-            const input = document.getElementById('src').value.toLowerCase();
-            const activeTab = document.querySelector('.tab-content.active');
-            if(!activeTab) return;
-            
-            const cards = activeTab.getElementsByClassName('card-item');
-            
-            for (let i = 0; i < cards.length; i++) {
-                const title = cards[i].querySelector('h3').textContent.toLowerCase();
-                const desc = cards[i].querySelector('p').textContent.toLowerCase();
-                
-                if (title.includes(input) || desc.includes(input)) {
-                    cards[i].style.display = "block";
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-        }
-
-        function vote(id, type) {
-            const storageKey = `voted_${id}`;
-            if (localStorage.getItem(storageKey)) {
-                alert("❌ Ya has votado en este script.");
-                return;
-            }
-            
-            const element = document.getElementById(`${id}-${type}s`);
-            let currentCount = parseInt(element.textContent);
-            element.textContent = currentCount + 1;
-            
-            localStorage.setItem(storageKey, type);
-        }
-
-        function addComment(id) {
-            const inputEl = document.getElementById(`${id}-newcomment`);
-            const commentText = inputEl.value.trim();
-            
-            if (commentText === "") {
-                alert("⚠️ Escribe algo antes de enviar.");
-                return;
-            }
-            
-            const list = document.getElementById(`${id}-comments`);
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment-item';
-            commentDiv.innerHTML = `<strong>Anónimo:</strong> ${commentText}`;
-            
-            list.appendChild(commentDiv);
-            inputEl.value = "";
-            list.scrollTop = list.scrollHeight;
-        }
-
-        function cp(id) {
-            const textEl = document.getElementById(id);
-            textEl.select();
-            textEl.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(textEl.value);
-            alert("¡Copiado con éxito al portapapeles! 📋");
-        }
-
-        function ac(btn) {
-            const content = btn.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        }
-
-        function validarKey() {
-            const inputVal = document.getElementById("keyField").value.trim();
-            if (inputVal === KEY_CORRECTA) {
-                const tiempoExpiracion = new Date().getTime() + (24 * 60 * 60 * 1000);
-                localStorage.setItem("hub_key_auth", tiempoExpiracion);
-                document.getElementById("lk").style.display = "none";
-                alert("¡Acceso concedido por 24 horas! 🎉");
-            } else {
-                alert("❌ Key incorrecta. Consíguela en Discord.");
-            }
-        }
-
-        window.onload = function() {
-            const auth = localStorage.getItem("hub_key_auth");
-            if (auth && new Date().getTime() < parseInt(auth)) {
-                document.getElementById("lk").style.display = "none";
-            }
-        }
-    </script>
-</body>
-</html>
-
