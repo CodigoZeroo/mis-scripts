@@ -162,31 +162,33 @@
 
     </div>
     <script>
-        // Conexión corregida a Supabase con tus llaves reales
         const SUPABASE_URL = "https://vwhklTGqkgZ5g_VcP0Mn.supabase.co";
         const SUPABASE_KEY = "sb_publishable_FzQ9SdRN4vVhklTGqkgZ5g_VcP0Mn6E";
         
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const KEY_CORRECTA = "MI_KEY_SECRETA_123";
 
-        window.onload = function() {
-            const auth = localStorage.getItem("hub_key_auth");
-            if (auth && new Date().getTime() < parseInt(auth)) {
-                document.getElementById("lk").style.display = "none";
-            }
-            refreshData();
+        // Comprobación instantánea de acceso sin esperar la base de datos
+        const auth = localStorage.getItem("hub_key_auth");
+        if (auth && new Date().getTime() < parseInt(auth)) {
+            document.getElementById("lk").style.display = "none";
         }
+        
+        // Ejecución en segundo plano para no congelar la página al iniciar
+        setTimeout(refreshData, 100);
 
         async function refreshData() {
-            const { data: reactions } = await _supabase.from('real_likes').select('*');
-            if (reactions) {
-                reactions.forEach(r => {
-                    if(document.getElementById(r.script_id + '-likes')) document.getElementById(r.script_id + '-likes').textContent = r.likes;
-                    if(document.getElementById(r.script_id + '-dislikes')) document.getElementById(r.script_id + '-dislikes').textContent = r.dislikes;
-                });
-            }
-            loadRealComments('s1');
-            loadRealComments('s2');
+            try {
+                const { data: reactions } = await _supabase.from('real_likes').select('*');
+                if (reactions) {
+                    reactions.forEach(r => {
+                        if(document.getElementById(r.script_id + '-likes')) document.getElementById(r.script_id + '-likes').textContent = r.likes;
+                        if(document.getElementById(r.script_id + '-dislikes')) document.getElementById(r.script_id + '-dislikes').textContent = r.dislikes;
+                    });
+                }
+                loadRealComments('s1');
+                loadRealComments('s2');
+            } catch(e) { console.log("Carga de base de datos demorada."); }
         }
 
         async function loadRealComments(scriptId) {
@@ -246,7 +248,7 @@
             for (let i = 0; i < contents.length; i++) contents[i].classList.remove('active');
             for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            if(event && event.currentTarget) event.currentTarget.classList.add('active');
         }
 
         function flt() {
@@ -274,7 +276,8 @@
         }
 
         function validarKey() {
-            if (document.getElementById("keyField").value.trim() === KEY_CORRECTA) {
+            const inputVal = document.getElementById("keyField").value.trim();
+            if (inputVal === KEY_CORRECTA) {
                 localStorage.setItem("hub_key_auth", new Date().getTime() + (24 * 60 * 60 * 1000));
                 document.getElementById("lk").style.display = "none";
                 alert("¡Acceso concedido! 🎉");
