@@ -26,20 +26,10 @@
             animation: g 4s infinite alternate;
         }
         @keyframes g {
-            0% {
-                border-bottom-color: #00f0ff;
-                box-shadow: 0 4px 15px rgba(0,240,255,0.2);
-            }
-            100% {
-                border-bottom-color: #ff00ff;
-                box-shadow: 0 4px 15px rgba(255,0,255,0.4);
-            }
+            0% { border-bottom-color: #00f0ff; box-shadow: 0 4px 15px rgba(0,240,255,0.2); }
+            100% { border-bottom-color: #ff00ff; box-shadow: 0 4px 15px rgba(255,0,255,0.4); }
         }
-        .logo-c {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .logo-c { display: flex; align-items: center; gap: 12px; }
         .g-logo {
             width: 45px;
             height: 45px;
@@ -57,149 +47,26 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.06); background: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
         }
-        .banner h1 {
-            margin: 0;
-            font-size: 22px;
-            color: #00f0ff;
-            letter-spacing: 1px;
-        }
-        .social {
-            margin: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-        .btn-s {
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 12px;
-            text-decoration: none;
-            color: #fff;
-        }
+        .banner h1 { margin: 0; font-size: 22px; color: #00f0ff; letter-spacing: 1px; }
+        .social { margin: 15px; display: flex; justify-content: center; gap: 12px; }
+        .btn-s { padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 12px; text-decoration: none; color: #fff; }
         .btn-yt { background: #f00; }
         .btn-dc { background: #5865f2; }
-        .search {
-            width: 85%;
-            max-width: 400px;
-            padding: 10px;
-            margin: 10px auto 20px auto;
-            background: #12161f;
-            border: 2px solid #30363d;
-            border-radius: 10px;
-            color: #fff;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .card {
-            background: #12161f;
-            border: 1px solid #21262d;
-            border-radius: 16px;
-            padding: 15px;
-            text-align: left;
-        }
-        .card-h {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-        .card-l {
-            width: 35px;
-            height: 35px;
-            background: #1f2430;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            border: 1px solid #30363d;
-        }
-        .badge {
-            padding: 4px 8px;
-            font-size: 9px;
-            font-weight: bold;
-            border-radius: 6px;
-            background: rgba(46,160,67,0.15);
-            color: #3fb950;
-            border: 1px solid rgba(46,160,67,0.4);
-            margin-left: auto;
-        }
-        .card h3 {
-            margin: 0;
-            color: #fff;
-            font-size: 16px;
-        }
-        .card p {
-            font-size: 12px;
-            color: #8b949e;
-            margin: 8px 0;
-            line-height: 1.4;
-        }
-        textarea {
-            width: 100%;
-            height: 55px;
-            background: #07090e;
-            color: #7ee787;
-            border: 1px solid #30363d;
-            padding: 6px;
-            font-family: monospace;
-            border-radius: 8px;
-            resize: none;
-            box-sizing: border-box;
-            font-size: 10px;
-        }
-        .btn-c {
-            background: linear-gradient(180px, #238636 0%, #1f7330 100%);
-            color: #fff;
-            border: none;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 8px;
-            margin-top: 10px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        .acc-btn {
-            background: none;
-            border: none;
-            color: #8b949e;
-            font-size: 11px;
-            cursor: pointer;
-            margin-top: 10px;
-            text-decoration: underline;
-            text-align: left;
-            width: 100%;
-        }
-        .acc-content {
-            display: none;
-            background: #07090e;
-            padding: 8px;
-            border-radius: 8px;
-            margin-top: 5px;
-            font-size: 11px;
-            color: #c9d1d9;
-            border: 1px solid #21262d;
-        }
-        .btn-r {
-            background: rgba(248,81,73,0.1);
-            color: #f85149;
-            border: 1px solid rgba(248,81,73,0.3);
-            font-size: 11px;
-            padding: 6px;
-            border-radius: 6px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-        }
+        .search { width: 85%; max-width: 400px; padding: 10px; margin: 10px auto 20px auto; background: #12161f; border: 2px solid #30363d; border-radius: 10px; color: #fff; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 15px; display: flex; flex-direction: column; gap: 15px; }
+        .card { background: #12161f; border: 1px solid #21262d; border-radius: 16px; padding: 15px; text-align: left; }
+        .card-h { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        .card-l { width: 35px; height: 35px; background: #1f2430; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid #30363d; }
+        .badge { padding: 4px 8px; font-size: 9px; font-weight: bold; border-radius: 6px; background: rgba(46,160,67,0.15); color: #3fb950; border: 1px solid rgba(46,160,67,0.4); margin-left: auto; }
+        .card h3 { margin: 0; color: #fff; font-size: 16px; }
+        .card p { font-size: 12px; color: #8b949e; margin: 8px 0; line-height: 1.4; }
+        textarea { width: 100%; height: 55px; background: #07090e; color: #7ee787; border: 1px solid #30363d; padding: 6px; font-family: monospace; border-radius: 8px; resize: none; box-sizing: border-box; font-size: 10px; }
+        .btn-c { background: linear-gradient(180px, #238636 0%, #1f7330 100%); color: #fff; border: none; padding: 10px; font-weight: bold; border-radius: 8px; margin-top: 10px; width: 100%; cursor: pointer; font-size: 13px; }
+        .acc-btn { background: none; border: none; color: #8b949e; font-size: 11px; cursor: pointer; margin-top: 10px; text-decoration: underline; text-align: left; width: 100%; }
+        .acc-content { display: none; background: #07090e; padding: 8px; border-radius: 8px; margin-top: 5px; font-size: 11px; color: #c9d1d9; border: 1px solid #21262d; }
+        .btn-r { background: rgba(248,81,73,0.1); color: #f85149; border: 1px solid rgba(248,81,73,0.3); font-size: 11px; padding: 6px; border-radius: 6px; margin-top: 10px; cursor: pointer; width: 100%; font-weight: bold; }
+        
+        /* DISEÑO DE LA PANTALLA DE KEY OBLIGATORIA */
         #lk {
             position: fixed;
             top: 0;
@@ -223,35 +90,65 @@
             max-width: 400px;
             box-shadow: 0 0 25px rgba(255,0,255,0.3);
         }
-        .lk-b h2 { color: #ff00ff; margin-top: 0; font-size: 22px; }
-        .lk-b p { color: #8b949e; font-size: 14px; line-height: 1.5; }
+        .lk-b h2 { color: #ff00ff; margin-top: 0; font-size: 20px; }
+        .lk-b p { color: #8b949e; font-size: 13px; line-height: 1.5; }
+        .key-input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #07090e;
+            border: 1px solid #30363d;
+            color: #fff;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .key-input:focus { outline: none; border-color: #ff00ff; }
+        .btn-verify {
+            background: #238636;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            width: 100%;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
         .btn-ul {
             background: #5865f2;
             color: #fff;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             text-decoration: none;
             display: block;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(88,101,242,0.4);
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <!-- BLOQUEO DE DISCORD -->
+    <!-- SISTEMA DE VERIFICACIÓN REAL POR KEY -->
     <div id="lk">
         <div class="lk-b">
-            <div style="font-size:40px; margin-bottom:10px;">🔒</div>
-            <h2>CONTENIDO BLOQUEADO</h2>
-            <p>Para poder acceder y copiar los scripts de Delta Executor, primero debes unirte a nuestro servidor oficial de Discord.</p>
-            <a href="https://discord.com" onclick="db()" target="_blank" class="btn-ul">Unirse al Discord Oficial 💬</a>
+            <div style="font-size:40px; margin-bottom:10px;">🔑</div>
+            <h2>SISTEMA DE VERIFICACIÓN</h2>
+            <p>Para desbloquear los scripts debes ingresar la Key secreta que está oculta dentro de nuestro Discord oficial.</p>
+            
+            <!-- Entrada de la contraseña -->
+            <input type="text" id="keyField" class="key-input" placeholder="Escribe la Key aquí...">
+            <button class="btn-verify" onclick="validarKey()">Verificar Key ✅</button>
+            
+            <!-- Botón obligatorio para buscar la contraseña -->
+            <a href="https://discord.com" target="_blank" class="btn-ul">Consigue la Key en Discord 💬</a>
         </div>
     </div>
 
-    <!-- HEADER -->
+    <!-- CONTENIDO DEL SCRIPT HUB -->
     <div class="banner">
         <div class="logo-c">
             <div class="g-logo">🎮</div>
@@ -259,19 +156,16 @@
         </div>
     </div>
 
-    <!-- REDES SOCIALES -->
     <div class="social">
         <a href="https://youtube.com" class="btn-s btn-yt">YouTube 🔴</a>
         <a href="https://discord.com" class="btn-s btn-dc">Discord 💬</a>
     </div>
 
-    <!-- BUSCADOR -->
     <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego...">
 
-    <!-- TARJETAS -->
     <div class="container">
 
-        <!-- TARJETA 1: DEMONOLOGY -->
+        <!-- TARJETA 1 -->
         <div class="card-item card">
             <div class="card-h">
                 <div class="card-l">👻</div>
@@ -286,7 +180,7 @@
             <button class="btn-r" onclick="rp('Demonology')">⚠️ Reportar Caído</button>
         </div>
 
-        <!-- TARJETA 2: BLOX FRUITS -->
+        <!-- TARJETA 2 -->
         <div class="card-item card">
             <div class="card-h">
                 <div class="card-l">⚔️</div>
@@ -301,7 +195,7 @@
             <button class="btn-r" onclick="rp('Blox Fruits')">⚠️ Reportar Caído</button>
         </div>
 
-        <!-- TARJETA 3: BROOKHAVEN -->
+        <!-- TARJETA 3 -->
         <div class="card-item card">
             <div class="card-h">
                 <div class="card-l">🏡</div>
@@ -318,12 +212,19 @@
 
     </div>
 
-    <!-- PROGRAMACIÓN LOGICA JAVASCRIPT -->
+    <!-- PROGRAMACIÓN JAVASCRIPT CORREGIDA -->
     <script>
-        function db() {
-            setTimeout(function() {
+        // LÓGICA DE VALIDACIÓN: AQUÍ CAMBIAS LA CONTRASEÑA CUANDO QUIERAS
+        function validarKey() {
+            var claveIngresada = document.getElementById('keyField').value;
+            var claveCorrecta = "CodigoZeroo123"; // Esta es tu contraseña secreta
+
+            if (claveIngresada === claveCorrecta) {
+                alert("¡Key correcta! Scripts desbloqueados.");
                 document.getElementById('lk').style.display = 'none';
-            }, 1000);
+            } else {
+                alert("❌ Key incorrecta. Búscala en el canal oficial de Discord.");
+            }
         }
 
         function cp(id) {
@@ -347,7 +248,7 @@
             var query = document.getElementById('src').value.toLowerCase();
             var cards = document.getElementsByClassName('card-item');
             for (var i = 0; i < cards.length; i++) {
-                var title = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                var title = cards[i].getElementsByTagName('h3').innerText.toLowerCase();
                 cards[i].style.display = title.includes(query) ? "block" : "none";
             }
         }
