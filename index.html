@@ -4,129 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Scripts Delta</title>
-    
-    <!-- ESTILOS CSS (Requisito 2 y 3) -->
     <style>
-        /* Estilos Generales */
-        body {
-            background-color: #121214;
-            color: #e1e1e6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-
-        /* REQUISITO 1: Pantalla de Bloqueo */
-        .bloqueo-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #09090a;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-        }
-        .bloqueo-box {
-            background: #202024;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #8257e5;
-            max-width: 400px;
-            width: 90%;
-        }
-        .bloqueo-box input {
-            padding: 12px; width: 85%; margin-bottom: 15px;
-            background: #121214; border: 1px solid #29292e; color: white; border-radius: 4px;
-            font-size: 14px; text-align: center;
-        }
-        .bloqueo-box button {
-            background: #8257e5; color: white; padding: 10px 25px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold;
-        }
-        .error-msg { color: #f75a68; font-size: 14px; margin-top: 10px; font-weight: bold; }
-        .hidden { display: none !important; }
-
-        /* REQUISITO 3 y 6: Encabezado, Pestañas y Redes */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #29292e;
-            padding-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .pestanas .tab-btn {
-            background: none; border: none; color: #a8a8b3;
-            padding: 10px 20px; font-size: 16px; cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-        .pestanas .tab-btn.active {
-            color: #00b37e; border-bottom: 2px solid #00b37e; font-weight: bold;
-        }
-        .redes-sociales a {
-            text-decoration: none; padding: 8px 15px; border-radius: 4px; margin-left: 10px; font-weight: bold; font-size: 14px;
-        }
+        body { background: #0b0b0d; color: #e1e1e6; font-family: sans-serif; margin: 0; padding: 0; }
+        .banner-container { width: 100%; height: 160px; background: linear-gradient(135px, #1a1a2e, #00b37e); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -30px 40px #0b0b0d; }
+        .logo-top { width: 85px; height: 85px; border-radius: 50%; border: 3px solid #00b37e; box-shadow: 0 0 15px rgba(0, 179, 126, 0.6); }
+        header { padding: 15px; background: #121214; border-bottom: 1px solid #29292e; }
+        .pestanas-wrapper { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+        .pestanas-wrapper::-webkit-scrollbar { display: none; }
+        .pestanas { display: inline-flex; gap: 10px; }
+        .pestanas .tab-btn { background: #202024; border: 1px solid #29292e; color: #a8a8b3; padding: 10px 22px; font-size: 14px; cursor: pointer; border-radius: 20px; font-weight: bold; transition: 0.3s; }
+        .pestanas .tab-btn.active { color: #fff; background: #00b37e; border-color: #00b37e; box-shadow: 0 0 12px rgba(0, 179, 126, 0.4); }
+        .redes-sociales { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .redes-sociales a { text-decoration: none; padding: 8px 20px; border-radius: 6px; font-weight: bold; font-size: 13px; }
         .btn-yt { background: #c4302b; color: white; }
         .btn-dc { background: #5865F2; color: white; }
-
-        /* REQUISITO 4: Buscador */
-        .buscador-section { margin: 20px 0; }
-        #buscador {
-            width: 100%; padding: 12px; box-sizing: border-box;
-            background: #202024; border: 1px solid #29292e; color: white; border-radius: 6px;
-            font-size: 15px;
-        }
-
-        /* REQUISITO 2: Recuadros de Scripts Compactos y Cómodos */
-        .grid-scripts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-        }
-        .script-card {
-            background: #202024;
-            border: 1px solid #29292e;
-            border-radius: 6px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .script-title { margin: 0 0 5px 0; font-size: 16px; color: #00b37e; }
-        .script-desc { margin: 0 0 10px 0; font-size: 13px; color: #a8a8b3; line-height: 1.4; }
-        
-        /* Cuadro de texto compacto para copiar */
-        .script-card textarea {
-            width: 100%; height: 35px; background: #121214; 
-            color: #7c7c8a; border: 1px solid #29292e; resize: none;
-            font-size: 11px; font-family: monospace; box-sizing: border-box;
-            padding: 8px; border-radius: 4px; cursor: pointer;
-            overflow: hidden; white-space: nowrap;
-        }
-
-        /* REQUISITO 5 y 7: Footer de los Scripts, Comentarios y Botones */
-        .script-footer {
-            display: flex; justify-content: space-between; margin-top: 10px; gap: 5px;
-        }
-        .btn-like, .btn-reportar {
-            background: #29292e; border: none; color: white; 
-            padding: 6px 12px; font-size: 12px; border-radius: 4px; cursor: pointer;
-            font-weight: bold; display: flex; align-items: center; gap: 4px;
-        }
-        .btn-reportar { background: #f75a68; }
-        .btn-reportar:hover { background: #c53e4c; }
-        
-        /* Sección Discreta de Comentarios Falsos */
-        .comentarios-falsos {
-            margin-top: 10px; padding-top: 8px; border-top: 1px solid #29292e;
-            font-size: 11px; color: #8d8d99;
-        }
-        .comentarios-falsos p { margin: 4px 0; line-height: 1.3; }
+        .buscador-section { padding: 0 20px; margin-top: 15px; }
+        #buscador { width: 100%; padding: 12px; background: #121214; border: 1px solid #29292e; color: white; border-radius: 8px; box-sizing: border-box; }
+        .grid-scripts { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; padding: 20px; }
+        .script-card { background: #121214; border: 1px solid rgba(0, 179, 126, 0.15); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transition: 0.3s; }
+        .script-card:hover { transform: translateY(-3px); border-color: #00b37e; box-shadow: 0 0 15px rgba(0, 179, 126, 0.25); }
+        .script-header-box { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+        .script-icon { width: 50px; height: 50px; border-radius: 8px; background: #202024; border: 1px solid #29292e; }
+        .script-info { flex-grow: 1; }
+        .script-title { margin: 0 0 3px 0; font-size: 15px; color: #fff; font-weight: bold; }
+        .script-desc { margin: 0; font-size: 12px; color: #a8a8b3; line-height: 1.4; }
+        .script-card textarea { width: 100%; height: 35px; background: #0b0b0d; color: #00b37e; border: 1px solid #29292e; resize: none; font-size: 11px; font-family: monospace; box-sizing: border-box; padding: 8px; border-radius: 6px; cursor: pointer; overflow: hidden; white-space: nowrap; }
+        .script-footer { display: flex; justify-content: space-between; margin-top: 12px; }
+        .btn-like, .btn-reportar { background: #202024; border: 1px solid #29292e; color: white; padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-reportar { background: #f75a68; border: none; }
+        .btn-toggle-comments { width: 100%; background: none; border: none; color: #00b37e; font-size: 11px; font-weight: bold; cursor: pointer; margin-top: 10px; padding: 5px 0; }
+        .comentarios-falsos { margin-top: 10px; padding-top: 8px; border-top: 1px solid #29292e; font-size: 11px; color: #8d8d99; }
+        .comentarios-falsos p { margin: 4px 0; }
+        .hidden-comments { display: none !important; }
+        .bloqueo-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050506; display: flex; justify-content: center; align-items: center; z-index: 10000; }
+        .bloqueo-box { background: #121214; padding: 30px; border-radius: 12px; text-align: center; border: 1px solid #00b37e; box-shadow: 0 0 20px rgba(0,179,126,0.2); max-width: 400px; width: 90%; }
+        .bloqueo-box input { padding: 12px; width: 85%; margin-bottom: 15px; background: #0b0b0d; border: 1px solid #29292e; color: white; border-radius: 6px; text-align: center; }
+        .bloqueo-box button { background: #00b37e; color: white; padding: 10px 25px; border: none; cursor: pointer; border-radius: 6px; font-weight: bold; }
+        .error-msg { color: #f75a68; font-size: 14px; margin-top: 10px; font-weight: bold; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- REQUISITO 1: Verificación de Llave al Entrar -->
     <div id="pantalla-bloqueo" class="bloqueo-overlay">
         <div class="bloqueo-box">
             <h2>🔑 Verificación Requerida</h2>
@@ -138,190 +57,136 @@
         </div>
     </div>
 
-    <!-- Contenido Principal (Bloqueado al inicio) -->
     <div id="contenido-principal" class="hidden">
-        
-        <!-- REQUISITO 3 y 6: Barra con Redes y Pestañas de Navegación -->
+        <div class="banner-container">
+            <img src="https://placeholder.com" class="logo-top" alt="Logo">
+        </div>
+
         <header>
-            <nav class="pestanas">
-                <button class="tab-btn active" onclick="cambiarPestana('mis-scripts')">Mis Scripts</button>
-                <button class="tab-btn" onclick="cambiarPestana('comunidad')">Comunidad</button>
-                <button class="tab-btn" onclick="cambiarPestana('actualizacion')">Actualización Delta</button>
-            </nav>
+            <div class="pestanas-wrapper">
+                <nav class="pestanas">
+                    <button class="tab-btn active" onclick="cambiarPestana('mis-scripts')">Mis Scripts</button>
+                    <button class="tab-btn" onclick="cambiarPestana('comunidad')">Comunidad</button>
+                    <button class="tab-btn" onclick="cambiarPestana('actualizacion')">Actualización Delta</button>
+                </nav>
+            </div>
             <div class="redes-sociales">
                 <a href="TU_LINK_DE_YOUTUBE" target="_blank" class="btn-yt">YouTube</a>
                 <a href="TU_LINK_DE_DISCORD" target="_blank" class="btn-dc">Discord</a>
             </div>
         </header>
 
-        <!-- REQUISITO 4: Buscador Funcional -->
         <section class="buscador-section">
             <input type="text" id="buscador" placeholder="🔍 Buscar scripts por nombre..." onkeyup="filtrarScripts()">
         </section>
 
-        <!-- Secciones de Contenido Intercambiables -->
         <main>
-            <!-- PESTAÑA 1: MIS SCRIPTS -->
             <div id="mis-scripts" class="tab-content">
                 <div class="grid-scripts">
-                    
-                    <!-- Tarjeta de Script 1 (Compacta) -->
                     <div class="script-card">
                         <div>
-                            <h3 class="script-title">Auto-Farm Delta V1</h3>
-                            <p class="script-desc">Farmeo automático rápido y optimizado para Delta.</p>
-                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado al portapapeles!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+                            <div class="script-header-box">
+                                <img src="https://placeholder.com" class="script-icon" alt="Icono">
+                                <div class="script-info">
+                                    <h3 class="script-title">Auto-Farm Delta V1</h3>
+                                    <p class="script-desc">Farmeo automático rápido y optimizado para Delta.</p>
+                                </div>
+                            </div>
+                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
                         </div>
                         <div>
                             <div class="script-footer">
                                 <button class="btn-like" onclick="darLike(this)">👍 <span class="like-count">142</span></button>
                                 <button class="btn-reportar" onclick="notificarCaido('Auto-Farm Delta V1')">⚠️ Caído</button>
                             </div>
-                            <!-- REQUISITO 5: Comentarios Falsos Discretos -->
-                            <div class="comentarios-falsos">
+                            <button class="btn-toggle-comments" onclick="toggleComentarios(this)">💬 Ver Comentarios</button>
+                            <div class="comentarios-falsos hidden-comments">
                                 <p>💬 <strong>User99:</strong> ¡Funciona de diez en la nueva versión!</p>
-                                <p>💬 <strong>RobloxKing:</strong> El auto-farm más rápido, gracias admin.</p>
+                                <p>💬 <strong>RobloxKing:</strong> El mejor auto-farm, gracias admin.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tarjeta de Script 2 (Compacta) -->
                     <div class="script-card">
                         <div>
-                            <h3 class="script-title">Aimbot Universal</h3>
-                            <p class="script-desc">Bloqueo de cámara suave, indetectable y ligero.</p>
-                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado al portapapeles!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
+                            <div class="script-header-box">
+                                <img src="https://placeholder.com" class="script-icon" alt="Icono">
+                                <div class="script-info">
+                                    <h3 class="script-title">Aimbot Universal</h3>
+                                    <p class="script-desc">Bloqueo de cámara suave, indetectable y ligero.</p>
+                                </div>
+                            </div>
+                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
                         </div>
                         <div>
                             <div class="script-footer">
                                 <button class="btn-like" onclick="darLike(this)">👍 <span class="like-count">87</span></button>
                                 <button class="btn-reportar" onclick="notificarCaido('Aimbot Universal')">⚠️ Caído</button>
                             </div>
-                            <div class="comentarios-falsos">
+                            <button class="btn-toggle-comments" onclick="toggleComentarios(this)">💬 Ver Comentarios</button>
+                            <div class="comentarios-falsos hidden-comments">
                                 <p>💬 <strong>X_Gamer:</strong> Muy fluido, no da bajones de FPS.</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Tarjeta de Script 3 (Compacta) -->
-                    <div class="script-card">
-                        <div>
-                            <h3 class="script-title">Teleport & Fly</h3>
-                            <p class="script-desc">Vuela por todo el mapa sin errores de desconexión.</p>
-                            <textarea readonly onclick="this.select(); document.execCommand('copy'); alert('¡Copiado al portapapeles!');">loadstring(game:HttpGet("https://githubusercontent.com"))()</textarea>
-                        </div>
-                        <div>
-                            <div class="script-footer">
-                                <button class="btn-like" onclick="darLike(this)">👍 <span class="like-count">64</span></button>
-                                <button class="btn-reportar" onclick="notificarCaido('Teleport & Fly')">⚠️ Caído</button>
-                            </div>
-                            <div class="comentarios-falsos">
-                                <p>💬 <strong>Speedy:</strong> Útil para escapar rápido de zonas peligrosas.</p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
-            <!-- PESTAÑA 2: COMUNIDAD -->
             <div id="comunidad" class="tab-content hidden">
-                <h2 style="color: #00b37e;">Scripts de la Comunidad</h2>
-                <p>Próximamente verás aquí los códigos y configuraciones recomendados por los miembros del canal.</p>
+                <h2 style="color: #00b37e; padding: 20px;">Scripts de la Comunidad</h2>
+                <p style="padding: 0 20px;">Próximamente verás aquí los códigos recomendados por los miembros.</p>
             </div>
 
-            <!-- PESTAÑA 3: ACTUALIZACIÓN DELTA -->
             <div id="actualizacion" class="tab-content hidden">
-                <h2 style="color: #00b37e;">Estado de Delta Executor</h2>
-                <p>Aquí pondré la información sobre si el ejecutor Delta está activo, caído o si requiere parches de Roblox.</p>
+                <h2 style="color: #00b37e; padding: 20px;">Estado de Delta Executor</h2>
+                <p style="padding: 0 20px;">Aquí pondré la información sobre si el ejecutor Delta está activo.</p>
             </div>
         </main>
     </div>
-    <!-- PROGRAMACIÓN / LÓGICA JAVASCRIPT -->
+
     <script>
-        // REQUISITO 1: Configura la llave que quieras aquí
         const LLAVE_CORRECTA = "DeltaDiscord2026"; 
-
         function verificarLlave() {
-            const llaveIngresada = document.getElementById("input-llave").value.trim();
-            const errorMsg = document.getElementById("error-llave");
-
-            if (llaveIngresada === LLAVE_CORRECTA) {
+            const llave = document.getElementById("input-llave").value.trim();
+            if (llave === LLAVE_CORRECTA) {
                 document.getElementById("pantalla-bloqueo").classList.add("hidden");
                 document.getElementById("contenido-principal").classList.remove("hidden");
             } else {
-                errorMsg.innerText = "❌ Llave incorrecta o expirada. Revisa los canales de Discord.";
+                document.getElementById("error-llave").innerText = "❌ Llave incorrecta. Revisa tu Discord.";
             }
         }
-
-        // REQUISITO 3: Sistema de pestañas limpias
         function cambiarPestana(idPestana) {
-            const contenidos = document.querySelectorAll(".tab-content");
-            contenidos.forEach(content => content.classList.add("hidden"));
-
-            const botones = document.querySelectorAll(".tab-btn");
-            botones.forEach(btn => btn.classList.remove("active"));
-
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.add("hidden"));
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
             document.getElementById(idPestana).classList.remove("hidden");
             event.currentTarget.classList.add("active");
         }
-
-        // REQUISITO 4: Motor del buscador en tiempo real
         function filtrarScripts() {
             const filtro = document.getElementById("buscador").value.toLowerCase();
-            const tarjetas = document.querySelectorAll(".script-card");
-
-            tarjetas.forEach(tarjeta => {
-                const titulo = tarjeta.querySelector(".script-title").innerText.toLowerCase();
-                const desc = tarjeta.querySelector(".script-desc").innerText.toLowerCase();
-                
-                if (titulo.includes(filtro) || desc.includes(filtro)) {
-                    tarjeta.style.display = "flex";
-                } else {
-                    tarjeta.style.display = "none";
-                }
+            document.querySelectorAll(".script-card").forEach(t => {
+                const title = t.querySelector(".script-title").innerText.toLowerCase();
+                t.style.display = title.includes(filtro) ? "flex" : "none";
             });
         }
-
-        // REQUISITO 5: Sumar likes sin recargar
-        function darLike(boton) {
-            const contador = boton.querySelector(".like-count");
-            let numeroLikes = parseInt(contador.innerText);
-            
-            if (!boton.classList.contains("liked")) {
-                numeroLikes += 1;
-                contador.innerText = numeroLikes;
-                boton.classList.add("liked");
-                boton.style.background = "#00b37e";
+        function darLike(b) {
+            const c = b.querySelector(".like-count");
+            if (!b.classList.contains("liked")) {
+                c.innerText = parseInt(c.innerText) + 1;
+                b.classList.add("liked");
+                b.style.background = "#00b37e";
             }
         }
-
-        // REQUISITO 7: Envío automático por Webhook de Discord
-        function notificarCaido(nombreScript) {
-            // COLOCA TU ENLACE DE WEBHOOK ENTRE LAS COMILLAS DE ABAJO
-            const webhookURL = "TU_URL_DE_WEBHOOK_DE_DISCORD_AQUI"; 
-
-            if(webhookURL === "TU_URL_DE_WEBHOOK_DE_DISCORD_AQUI") {
-                alert("¡Configuración incompleta! Debes poner la URL de tu Webhook de Discord en el código del archivo index.html");
-                return;
-            }
-
-            const datosMensaje = {
-                content: `🚨 **¡ALERTA DE SCRIPT CAÍDO!** El script **${nombreScript}** ha sido reportado en la web.`
-            };
-
-            fetch(webhookURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(datosMensaje)
-            })
-            .then(() => {
-                alert(`¡Reporte enviado! He avisado al staff en Discord sobre el fallo en: ${nombreScript}`);
-            })
-            .catch(err => {
-                console.error("Error al enviar alerta:", err);
-                alert("Hubo un error de conexión al enviar el reporte.");
-            });
+        function toggleComentarios(b) {
+            const caja = b.nextElementSibling;
+            const oculto = caja.classList.toggle("hidden-comments");
+            b.innerText = oculto ? "💬 Ver Comentarios" : "💬 Ocultar Comentarios";
+        }
+        function notificarCaido(name) {
+            const url = "TU_URL_DE_WEBHOOK_DE_DISCORD_AQUI"; 
+            if(url === "TU_URL_DE_WEBHOOK_DE_DISCORD_AQUI") { alert("¡Falta configurar tu Webhook de Discord!"); return; }
+            fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: `🚨 **SCRIPT CAÍDO:** El script **${name}** no funciona.` }) })
+            .then(() => alert("¡Reporte enviado a Discord!"))
+            .catch(() => alert("Error al conectar con Discord."));
         }
     </script>
 </body>
