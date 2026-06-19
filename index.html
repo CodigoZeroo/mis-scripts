@@ -65,107 +65,45 @@
         .acc-btn { background: none; border: none; color: #8b949e; font-size: 11px; cursor: pointer; margin-top: 10px; text-decoration: underline; text-align: left; width: 100%; }
         .acc-content { display: none; background: #07090e; padding: 8px; border-radius: 8px; margin-top: 5px; font-size: 11px; color: #c9d1d9; border: 1px solid #21262d; }
         .btn-r { background: rgba(248,81,73,0.1); color: #f85149; border: 1px solid rgba(248,81,73,0.3); font-size: 11px; padding: 6px; border-radius: 6px; margin-top: 10px; cursor: pointer; width: 100%; font-weight: bold; }
-        
-        /* DISEÑO DE LA PANTALLA DE KEY OBLIGATORIA */
-        #lk {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #07060d;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .lk-b {
-            background: #12161f;
-            border: 2px solid #ff00ff;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 400px;
-            box-shadow: 0 0 25px rgba(255,0,255,0.3);
-        }
+        #lk { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #07060d; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        .lk-b { background: #12161f; border: 2px solid #ff00ff; padding: 30px; border-radius: 20px; max-width: 400px; box-shadow: 0 0 25px rgba(255,0,255,0.3); }
         .lk-b h2 { color: #ff00ff; margin-top: 0; font-size: 20px; }
         .lk-b p { color: #8b949e; font-size: 13px; line-height: 1.5; }
-        .key-input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            background: #07090e;
-            border: 1px solid #30363d;
-            color: #fff;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
+        .key-input { width: 100%; padding: 12px; margin-top: 15px; background: #07090e; border: 1px solid #30363d; color: #fff; border-radius: 8px; text-align: center; font-size: 16px; box-sizing: border-box; }
         .key-input:focus { outline: none; border-color: #ff00ff; }
-        .btn-verify {
-            background: #238636;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            width: 100%;
-            border: none;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .btn-ul {
-            background: #5865f2;
-            color: #fff;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            text-decoration: none;
-            display: block;
-            margin-top: 15px;
-        }
+        .btn-verify { background: #238636; color: white; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; width: 100%; border: none; margin-top: 10px; cursor: pointer; }
+        .btn-ul { background: #5865f2; color: #fff; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; text-decoration: none; display: block; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <!-- SISTEMA DE VERIFICACIÓN REAL POR KEY -->
     <div id="lk">
         <div class="lk-b">
             <div style="font-size:40px; margin-bottom:10px;">🔑</div>
             <h2>SISTEMA DE VERIFICACIÓN</h2>
-            <p>Para desbloquear los scripts debes ingresar la Key secreta que está oculta dentro de nuestro Discord oficial.</p>
-            
-            <!-- Entrada de la contraseña -->
+            <p>Introduce la Key de Discord. Al verificarla, tendrás acceso libre a los scripts durante 24 horas completas.</p>
             <input type="text" id="keyField" class="key-input" placeholder="Escribe la Key aquí...">
             <button class="btn-verify" onclick="validarKey()">Verificar Key ✅</button>
-            
-            <!-- Botón obligatorio para buscar la contraseña -->
             <a href="https://discord.com" target="_blank" class="btn-ul">Consigue la Key en Discord 💬</a>
         </div>
     </div>
 
-    <!-- CONTENIDO DEL SCRIPT HUB -->
     <div class="banner">
         <div class="logo-c">
             <div class="g-logo">🎮</div>
-            <h1>CODIGO ZERO SCRIPT HUB</h1>
+            <h1>ROBLOX SCRIPT HUB</h1>
         </div>
     </div>
 
     <div class="social">
-        <a href="https://youtube.com/@codigozeroglitch?si=-s2rXQfNyGDre91H" class="btn-s btn-yt">YouTube 🔴</a>
-        <a href="https://discord.gg/Rj5DKe7MV" class="btn-s btn-dc">Discord 💬</a>
+        <a href="https://youtube.com" class="btn-s btn-yt">YouTube 🔴</a>
+        <a href="https://discord.com" class="btn-s btn-dc">Discord 💬</a>
     </div>
 
     <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego...">
 
     <div class="container">
 
-        <!-- TARJETA 1 -->
         <div class="card-item card">
             <div class="card-h">
                 <div class="card-l">👻</div>
@@ -180,7 +118,6 @@
             <button class="btn-r" onclick="rp('Demonology')">⚠️ Reportar Caído</button>
         </div>
 
-        <!-- TARJETA 2 -->
         <div class="card-item card">
             <div class="card-h">
                 <div class="card-l">⚔️</div>
@@ -193,10 +130,7 @@
             <button class="acc-btn" onclick="ac(this)">⚙️ Ver instrucciones</button>
             <div class="acc-content">Usar preferiblemente en servidores privados.</div>
             <button class="btn-r" onclick="rp('Blox Fruits')">⚠️ Reportar Caído</button>
-        </div>
-
-        <!-- TARJETA 3 -->
-        <div class="card-item card">
+        </div>        <div class="card-item card">
             <div class="card-h">
                 <div class="card-l">🏡</div>
                 <h3>Brookhaven — Admin</h3>
@@ -212,15 +146,27 @@
 
     </div>
 
-    <!-- PROGRAMACIÓN JAVASCRIPT CORREGIDA -->
     <script>
-        // LÓGICA DE VALIDACIÓN: AQUÍ CAMBIAS LA CONTRASEÑA CUANDO QUIERAS
+        var claveCorrecta = "CodigoZeroo123";
+
+        window.onload = function() {
+            var tiempoGuardado = localStorage.getItem('hub_auth_time');
+            if (tiempoGuardado) {
+                var tiempoActual = new Date().getTime();
+                var horasPasadas = (tiempoActual - tiempoGuardado) / (1000 * 60 * 60);
+                if (horasPasadas < 24) {
+                    document.getElementById('lk').style.display = 'none';
+                } else {
+                    localStorage.removeItem('hub_auth_time');
+                }
+            }
+        };
+
         function validarKey() {
             var claveIngresada = document.getElementById('keyField').value;
-            var claveCorrecta = "CodigoZeroo123"; // Esta es tu contraseña secreta
-
             if (claveIngresada === claveCorrecta) {
-                alert("¡Key correcta! Scripts desbloqueados.");
+                alert("¡Key correcta! Acceso concedido por 24 horas.");
+                localStorage.setItem('hub_auth_time', new Date().getTime());
                 document.getElementById('lk').style.display = 'none';
             } else {
                 alert("❌ Key incorrecta. Búscala en el canal oficial de Discord.");
@@ -231,15 +177,10 @@
             var t = document.getElementById(id);
             t.select();
             t.setSelectionRange(0, 99999);
-            try {
-                navigator.clipboard.writeText(t.value);
-            } catch (e) {
+            try { navigator.clipboard.writeText(t.value); } catch (e) {
                 var x = document.createElement("textarea");
-                x.value = t.value;
-                document.body.appendChild(x);
-                x.select();
-                document.execCommand("copy");
-                document.body.removeChild(x);
+                x.value = t.value; document.body.appendChild(x); x.select();
+                document.execCommand("copy"); document.body.removeChild(x);
             }
             alert("¡Script copiado con éxito!");
         }
@@ -256,13 +197,12 @@
         function ac(btn) {
             var c = btn.nextElementSibling;
             c.style.display = c.style.display === "block" ? "none" : "block";
-            btn.innerText = c.style.display === "block" ? "🔼 Ocultar instrucciones" : "⚙️ Ver instrucciones";
+            btn.innerText = c.style.display === "block" ? "🔼 Ocultar" : "⚙️ Ver instrucciones";
         }
 
-        function rp(juego) {
-            alert("Reporte enviado para el script de: " + juego);
-        }
+        function rp(juego) { alert("Reporte enviado para el script de: " + juego); }
     </script>
 
 </body>
 </html>
+
