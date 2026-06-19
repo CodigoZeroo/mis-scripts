@@ -43,7 +43,7 @@
         .comment-input-box { display: flex; gap: 6px; }
         .comment-input { flex: 1; padding: 6px; background: #07090e; border: 1px solid #30363d; color: #fff; border-radius: 6px; font-size: 11px; }
         .btn-comment { background: #5865f2; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold; }
-        #lk { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #07060d; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        #lk { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #06090e; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
         .lk-b { background: #12161f; border: 2px solid #ff00ff; padding: 30px; border-radius: 20px; max-width: 400px; box-shadow: 0 0 25px rgba(255,0,255,0.3); text-align: center; }
         .lk-b h2 { color: #ff00ff; margin-top: 0; font-size: 20px; }
         .lk-b p { color: #8b949e; font-size: 13px; line-height: 1.5; }
@@ -79,9 +79,9 @@
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('mis-scripts')">Mis Scripts</button>
-        <button class="tab-btn" onclick="switchTab('comunidad')">Comunidad</button>
-        <button class="tab-btn" onclick="switchTab('delta')">Delta</button>
+        <button class="tab-btn active" id="btn-mis-scripts" onclick="switchTab('mis-scripts', this)">Mis Scripts</button>
+        <button class="tab-btn" id="btn-comunidad" onclick="switchTab('comunidad', this)">Comunidad</button>
+        <button class="tab-btn" id="btn-delta" onclick="switchTab('delta', this)">Delta</button>
     </div>
 
     <input type="text" id="src" class="search" onkeyup="flt()" placeholder="🔍 Busca un juego...">
@@ -168,20 +168,19 @@
         let _supabase = null;
         const KEY_CORRECTA = "MI_KEY_SECRETA_123";
 
-        // Comprobación de llave puramente local al abrir el sitio
+        // Comprobación de llave local instantánea al abrir el sitio
         const auth = localStorage.getItem("hub_key_auth");
         if (auth && new Date().getTime() < parseInt(auth)) {
             document.getElementById("lk").style.display = "none";
             conectarBaseDatos();
         }
 
-        // Esta función solo se activa si la llave local ya fue validada con éxito
         function conectarBaseDatos() {
             try {
                 _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
                 refreshData();
             } catch(e) {
-                console.log("Error inicializando Supabase de forma segura.");
+                console.log("Error al conectar base de datos.");
             }
         }
 
@@ -191,13 +190,15 @@
                 const { data: reactions } = await _supabase.from('real_likes').select('*');
                 if (reactions) {
                     reactions.forEach(r => {
-                        if(document.getElementById(r.script_id + '-likes')) document.getElementById(r.script_id + '-likes').textContent = r.likes;
-                        if(document.getElementById(r.script_id + '-dislikes')) document.getElementById(r.script_id + '-dislikes').textContent = r.dislikes;
+                        const targetLike = document.getElementById(r.script_id + '-likes');
+                        const targetDislike = document.getElementById(r.script_id + '-dislikes');
+                        if (targetLike) targetLike.textContent = r.likes;
+                        if (targetDislike) targetDislike.textContent = r.dislikes;
                     });
                 }
                 loadRealComments('s1');
                 loadRealComments('s2');
-            } catch(e) { console.log("Espera de respuesta de red."); }
+            } catch(e) { console.log("Carga diferida."); }
         }
 
         async function loadRealComments(scriptId) {
@@ -217,7 +218,7 @@
         }
 
         async function vote(id, column) {
-            if (!_supabase) { alert("⚠️ Esperando conexión segura."); return; }
+            if (!_supabase) { alert("⚠️ Esperando conexión segura de base de datos."); return; }
             const storageKey = "voted_" + id;
             if (localStorage.getItem(storageKey)) {
                 alert("❌ Ya has votado en este script.");
@@ -239,7 +240,7 @@
         }
 
         async function addComment(id) {
-            if (!_supabase) { alert("⚠️ Esperando conexión segura."); return; }
+            if (!_supabase) { alert("⚠️ Esperando conexión segura de base de datos."); return; }
             const inputEl = document.getElementById(id + '-newcomment');
             const text = inputEl.value.trim();
             if (text === "") return;
@@ -254,13 +255,14 @@
             }
         }
 
-        function switchTab(tabId) {
+        function switchTab(tabId, currentBtn) {
             const contents = document.getElementsByClassName('tab-content');
             const buttons = document.getElementsByClassName('tab-btn');
             for (let i = 0; i < contents.length; i++) contents[i].classList.remove('active');
             for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove('active');
+            
             document.getElementById(tabId).classList.add('active');
-            if(window.event && window.event.currentTarget) window.event.currentTarget.classList.add('active');
+            if(currentBtn) currentBtn.classList.add('active');
         }
 
         function flt() {
